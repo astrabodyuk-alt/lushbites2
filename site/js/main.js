@@ -102,6 +102,10 @@ const prefersReducedMotion = () =>
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* Cross-browser scroll normalisation (fixes Chrome ScrollTrigger bug) */
+  ScrollTrigger.normalizeScroll(true);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
   if (prefersReducedMotion()) {
     $$('[data-reveal]').forEach(el => {
       el.style.opacity = '1';
@@ -113,19 +117,27 @@ const prefersReducedMotion = () =>
   $$('[data-reveal]').forEach(el => {
     const dir = el.dataset.reveal;
 
-    let fromVars = { opacity: 0, duration: 0.75, ease: 'power2.out' };
+    /* Set initial invisible state via JS (not CSS) so elements are
+       visible if GSAP fails to load — fixes Chrome ScrollTrigger bug */
+    let initVars = { opacity: 0 };
     if (!dir || dir === 'true' || dir === '') {
-      fromVars.y = 32;
+      initVars.y = 32;
     } else if (dir === 'left') {
-      fromVars.x = -40;
+      initVars.x = -40;
     } else if (dir === 'right') {
-      fromVars.x = 40;
+      initVars.x = 40;
     } else if (dir === 'scale') {
-      fromVars.scale = 0.94;
+      initVars.scale = 0.94;
     }
+    gsap.set(el, initVars);
 
-    gsap.from(el, {
-      ...fromVars,
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      scale: 1,
+      duration: 0.75,
+      ease: 'power2.out',
       scrollTrigger: {
         trigger: el,
         start: 'top 85%',
@@ -142,9 +154,10 @@ const prefersReducedMotion = () =>
     cards.forEach((card, i) => {
       // Only animate if not already handled by data-reveal
       if (card.hasAttribute('data-reveal')) return;
-      gsap.from(card, {
-        opacity: 0,
-        y: 24,
+      gsap.set(card, { opacity: 0, y: 24 });
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
         duration: 0.6,
         ease: 'power2.out',
         scrollTrigger: {

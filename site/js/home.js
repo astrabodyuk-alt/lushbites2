@@ -20,6 +20,10 @@
   onGSAPReady(function () {
     gsap.registerPlugin(ScrollTrigger);
 
+    /* Cross-browser scroll normalisation (fixes Chrome ScrollTrigger bug) */
+    ScrollTrigger.normalizeScroll(true);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     /* ─────────────────────────────────────────────────────────
        HERO — staggered word/line reveal
     ───────────────────────────────────────────────────────── */
@@ -91,6 +95,8 @@
         return;
       }
 
+      gsap.set(cards, { opacity: 0, y: 28 });
+
       gsap.to(cards, {
         opacity: 1,
         y: 0,
@@ -116,6 +122,8 @@
         stats.forEach(s => { s.style.opacity = 1; s.style.transform = 'none'; });
         return;
       }
+
+      gsap.set(stats, { opacity: 0, y: 24 });
 
       gsap.to(stats, {
         opacity: 1,
@@ -203,6 +211,9 @@
         return;
       }
 
+      gsap.set(visual, { opacity: 0, x: -32 });
+      gsap.set(text,   { opacity: 0, x: 32 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '.story-teaser__inner',
@@ -224,6 +235,8 @@
         cards.forEach(c => { c.style.opacity = 1; c.style.transform = 'none'; });
         return;
       }
+
+      gsap.set(cards, { opacity: 0, y: 24 });
 
       gsap.to(cards, {
         opacity: 1,
