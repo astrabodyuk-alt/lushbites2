@@ -631,5 +631,291 @@
   v.play();
   document.addEventListener('click', function() { v.play(); }, {once: true});
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WELCOME POPUP
+════════════════════════════════════════════════════════════ -->
+<div id="welcomeOverlay" role="dialog" aria-modal="true" aria-labelledby="welcomeHeadline" style="
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+">
+  <div id="welcomeCard" style="
+    position: relative;
+    background: #1a1a1a;
+    border: 1px solid rgba(245,240,232,0.1);
+    border-radius: 20px;
+    max-width: 440px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+    animation: welcomePop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+  ">
+
+    <!-- Close X -->
+    <button id="welcomeClose" aria-label="Close welcome offer" style="
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      background: rgba(245,240,232,0.08);
+      border: none;
+      border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(245,240,232,0.6);
+      font-size: 18px;
+      line-height: 1;
+      transition: background 0.15s, color 0.15s;
+    ">✕</button>
+
+    <!-- Burger image -->
+    <div style="
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    ">
+      <img
+        src="../assets/Burger Assembled.jpg"
+        alt="Lush Bites signature smash burger"
+        style="width:100%; height:100%; object-fit:cover; object-position:center 60%; display:block;"
+        onerror="this.style.display='none'; this.parentElement.style.background='radial-gradient(ellipse at 60% 50%, #5c2010 0%, #2d1408 100%)';"
+      >
+      <!-- Gradient fade at bottom so card blends into body -->
+      <div aria-hidden="true" style="
+        position:absolute; bottom:0; left:0; right:0; height:60px;
+        background: linear-gradient(to bottom, transparent, #1a1a1a);
+      "></div>
+    </div>
+
+    <!-- Body -->
+    <div style="padding: 0 1.75rem 1.75rem;">
+
+      <!-- Fire accent bar -->
+      <div aria-hidden="true" style="
+        width: 40px; height: 3px;
+        background: #e84c1e;
+        border-radius: 999px;
+        margin-bottom: 1rem;
+      "></div>
+
+      <h2 id="welcomeHeadline" style="
+        font-family: 'Instrument Serif', Georgia, serif;
+        font-size: 1.85rem;
+        color: #f5f0e8;
+        line-height: 1.15;
+        margin: 0 0 0.5rem;
+      ">Welcome to Lush Bites</h2>
+
+      <p style="
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.9375rem;
+        color: #b8a898;
+        margin: 0 0 1.25rem;
+        line-height: 1.55;
+      ">Portsmouth's freshest smash burgers, wings &amp; more.</p>
+
+      <!-- Offer highlight -->
+      <div style="
+        background: rgba(232,76,30,0.1);
+        border: 1px solid rgba(232,76,30,0.35);
+        border-radius: 10px;
+        padding: 0.875rem 1rem;
+        margin-bottom: 1.25rem;
+        text-align: center;
+      ">
+        <p style="
+          font-family: 'DM Sans', system-ui, sans-serif;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #e84c1e;
+          margin: 0 0 0.2rem;
+        ">Exclusive First-Visit Offer</p>
+        <p style="
+          font-family: 'DM Sans', system-ui, sans-serif;
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: #f5f0e8;
+          margin: 0;
+        ">10% OFF your first order</p>
+      </div>
+
+      <!-- Promo code -->
+      <p style="
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #b8a898;
+        margin: 0 0 0.5rem;
+        text-align: center;
+      ">Use code at checkout</p>
+      <button id="promoCode" aria-label="Copy promo code WELCOME10" title="Click to copy" style="
+        display: block;
+        width: 100%;
+        background: rgba(245,240,232,0.05);
+        border: 1.5px dashed rgba(245,240,232,0.25);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: #f5f0e8;
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 1.25rem;
+        transition: background 0.15s, border-color 0.15s;
+        position: relative;
+      ">WELCOME10
+        <span id="copyHint" style="
+          display: block;
+          font-size: 0.65rem;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          color: rgba(245,240,232,0.35);
+          margin-top: 0.15rem;
+          text-transform: uppercase;
+        ">Click to copy</span>
+      </button>
+
+      <!-- CTA -->
+      <a href="order.html" onclick="dismissWelcome()" style="
+        display: block;
+        background: #e84c1e;
+        color: #fff;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+        padding: 0.875rem 1.75rem;
+        border-radius: 999px;
+        text-decoration: none;
+        margin-bottom: 0.875rem;
+        transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+        letter-spacing: 0.02em;
+      "
+        onmouseover="this.style.background='#c43a10'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 32px rgba(232,76,30,0.4)'"
+        onmouseout="this.style.background='#e84c1e'; this.style.transform=''; this.style.boxShadow=''"
+      >Order Now</a>
+
+      <!-- No thanks -->
+      <button onclick="dismissWelcome()" style="
+        display: block;
+        width: 100%;
+        background: none;
+        border: none;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 0.8rem;
+        color: rgba(245,240,232,0.3);
+        cursor: pointer;
+        text-align: center;
+        padding: 0.25rem;
+        transition: color 0.15s;
+      "
+        onmouseover="this.style.color='rgba(245,240,232,0.55)'"
+        onmouseout="this.style.color='rgba(245,240,232,0.3)'"
+      >No thanks, I'll pay full price</button>
+
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes welcomePop {
+  from { opacity: 0; transform: scale(0.88) translateY(24px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+#welcomeClose:hover {
+  background: rgba(245,240,232,0.15) !important;
+  color: #f5f0e8 !important;
+}
+#promoCode:hover {
+  background: rgba(245,240,232,0.09) !important;
+  border-color: rgba(245,240,232,0.4) !important;
+}
+</style>
+
+<script>
+(function () {
+  var STORAGE_KEY = 'lushbites_welcome_seen';
+  var overlay = document.getElementById('welcomeOverlay');
+  var card    = document.getElementById('welcomeCard');
+
+  /* Only show once per visitor */
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  /* Show after 2 s */
+  setTimeout(function () {
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }, 2000);
+
+  /* Dismiss + save to localStorage */
+  window.dismissWelcome = function () {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    localStorage.setItem(STORAGE_KEY, '1');
+  };
+
+  /* Close button */
+  document.getElementById('welcomeClose').addEventListener('click', dismissWelcome);
+
+  /* Click outside card */
+  overlay.addEventListener('click', function (e) {
+    if (!card.contains(e.target)) dismissWelcome();
+  });
+
+  /* Escape key */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.style.display === 'flex') dismissWelcome();
+  });
+
+  /* Copy promo code */
+  document.getElementById('promoCode').addEventListener('click', function () {
+    var hint = document.getElementById('copyHint');
+    navigator.clipboard.writeText('WELCOME10').then(function () {
+      hint.textContent = 'Copied!';
+      hint.style.color = '#e84c1e';
+      setTimeout(function () {
+        hint.textContent = 'Click to copy';
+        hint.style.color = '';
+      }, 2000);
+    }).catch(function () {
+      /* Fallback for older browsers */
+      var ta = document.createElement('textarea');
+      ta.value = 'WELCOME10';
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      hint.textContent = 'Copied!';
+      hint.style.color = '#e84c1e';
+      setTimeout(function () {
+        hint.textContent = 'Click to copy';
+        hint.style.color = '';
+      }, 2000);
+    });
+  });
+}());
+</script>
+
 </body>
 </html>
