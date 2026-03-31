@@ -1,0 +1,134 @@
+/* ─────────────────────────────────────────────────────────────
+   LUSH BITES — Menu Page Styles
+   ───────────────────────────────────────────────────────────── */
+
+/* ══ MENU HEADER ═════════════════════════════════════════════ */
+.menu-header {
+  background: var(--c-dark);
+  padding-top: calc(var(--nav-h) + clamp(var(--sp-12), 6vw, var(--sp-24)));
+  padding-bottom: clamp(var(--sp-12), 6vw, var(--sp-24));
+}
+
+.menu-header__title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--c-cream);
+  margin-bottom: var(--sp-3);
+}
+
+.menu-header__title em {
+  font-style: italic;
+  color: var(--c-fire);
+}
+
+.menu-header__sub {
+  font-size: 1.0625rem;
+  color: var(--c-muted);
+  line-height: 1.7;
+}
+
+/* ══ STICKY CAT NAV ══════════════════════════════════════════ */
+.menu-cat-nav {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 50;
+  background: rgba(26,26,26,.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(245,240,232,.08);
+  padding-block: var(--sp-3);
+}
+
+.menu-cat-tabs {
+  justify-content: flex-start;
+}
+
+/* ══ MENU SECTIONS ════════════════════════════════════════════ */
+.menu-section {
+  background: var(--c-dark);
+}
+
+.menu-section--alt {
+  background: var(--c-brown);
+  border-top: 1px solid rgba(245,240,232,.06);
+  border-bottom: 1px solid rgba(245,240,232,.06);
+}
+
+.menu-section__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+.menu-section__emoji {
+  font-size: 3rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.menu-section__title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--c-cream);
+  margin-bottom: var(--sp-1);
+}
+
+.menu-section__sub {
+  font-size: 0.9375rem;
+  color: var(--c-muted);
+}
+
+/* ══ SUBSECTION LABELS ════════════════════════════════════════ */
+.menu-subsection {
+  margin-bottom: var(--sp-6);
+  margin-top: var(--sp-12);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid rgba(245,240,232,.1);
+}
+
+.menu-subsection:first-of-type {
+  margin-top: 0;
+}
+
+.menu-subsection__label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-fire);
+  font-family: var(--font-body);
+}
+
+/* ══ ORDER CTA STRIP ══════════════════════════════════════════ */
+.menu-order-cta {
+  background: var(--c-fire);
+  padding-block: clamp(var(--sp-12), 6vw, var(--sp-16));
+}
+
+.menu-order-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.menu-order-cta__title {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: #fff;
+  margin-bottom: var(--sp-2);
+}
+
+.menu-order-cta__sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,.75);
+}
+
+.menu-order-cta .btn--ghost {
+  border-color: rgba(255,255,255,.5);
+  color: #fff;
+}
+.menu-order-cta .btn--ghost:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,.1);
+}

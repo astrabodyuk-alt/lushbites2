@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order — Lush Bites Portsmouth</title>
+  <meta name="description" content="Order Lush Bites online. Dine in at 135 Queen Street, Click & Collect, or delivery via Deliveroo, Just Eat, and Uber Eats across Portsmouth.">
+  <link rel="canonical" href="https://lushbites.co.uk/order">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/order.css">
+</head>
+
+<body>
+
+<nav class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">Lush <span class="nav__logo-fire">Bites</span></a>
+    <ul class="nav__links">
+      <li><a href="menu.html" class="nav__link">Menu</a></li>
+      <li><a href="story.html" class="nav__link">Our Story</a></li>
+      <li><a href="order.html" class="nav__link active">Order</a></li>
+      <li><a href="find-us.html" class="nav__link">Find Us</a></li>
+    </ul>
+    <a href="order.html" class="btn btn--fire btn--sm nav__cta">Order Now</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav__mobile-menu" id="mobileMenu">
+  <a href="menu.html" class="nav__link">Menu</a>
+  <a href="story.html" class="nav__link">Our Story</a>
+  <a href="order.html" class="nav__link active">Order</a>
+  <a href="find-us.html" class="nav__link">Find Us</a>
+  <a href="order.html" class="btn btn--fire">Order Now</a>
+</div>
+
+<!-- ══ PAGE HEADER ══════════════════════════════════════════ -->
+<header class="order-header">
+  <div class="container">
+    <p class="section-label" data-reveal>Order Online</p>
+    <h1 class="order-header__title" data-reveal>Your way.<br><em>Your choice.</em></h1>
+    <p class="order-header__sub" data-reveal>Dine in, collect, or get it delivered — we make it easy.</p>
+  </div>
+</header>
+
+<!-- ══ ORDER MODE CARDS ══════════════════════════════════════ -->
+<section class="section order-page-section" aria-label="Order options">
+  <div class="container">
+    <div class="order-modes-grid">
+
+      <!-- Dine In -->
+      <div class="order-mode-card" data-reveal>
+        <div class="order-mode-card__icon" aria-hidden="true">🪑</div>
+        <h2 class="order-mode-card__title">Dine In</h2>
+        <p class="order-mode-card__desc">Come in and we'll take care of everything. Walk-ins always welcome. 135 Queen Street — city centre Portsmouth, easy to get to.</p>
+        <div class="order-mode-card__detail">
+          <div class="order-detail-row">
+            <span class="order-detail-label">Address</span>
+            <span>135 Queen Street, PO1 3HY</span>
+          </div>
+          <div class="order-detail-row">
+            <span class="order-detail-label">Mon–Thu</span>
+            <span>11:00 – 22:00</span>
+          </div>
+          <div class="order-detail-row">
+            <span class="order-detail-label">Fri–Sat</span>
+            <span>11:00 – 23:00</span>
+          </div>
+          <div class="order-detail-row">
+            <span class="order-detail-label">Sunday</span>
+            <span>12:00 – 21:00</span>
+          </div>
+        </div>
+        <a href="find-us.html" class="btn btn--ghost" style="width:100%; justify-content:center;">Get Directions</a>
+      </div>
+
+      <!-- Click & Collect -->
+      <div class="order-mode-card order-mode-card--featured" data-reveal>
+        <div class="order-mode-card__badge">Fastest</div>
+        <div class="order-mode-card__icon" aria-hidden="true">🛍️</div>
+        <h2 class="order-mode-card__title">Click &amp; Collect</h2>
+        <p class="order-mode-card__desc">Order online, skip the queue, collect when it's ready. Usually 10–15 minutes. Pay online, nothing to do when you arrive.</p>
+        <div class="order-mode-card__detail">
+          <div class="order-detail-row">
+            <span class="order-detail-label">Wait time</span>
+            <span>~10–15 mins</span>
+          </div>
+          <div class="order-detail-row">
+            <span class="order-detail-label">Collect from</span>
+            <span>135 Queen Street</span>
+          </div>
+        </div>
+        <!-- Placeholder — replace href with live ordering platform URL -->
+        <a href="#" class="btn btn--fire" style="width:100%; justify-content:center;">Order for Collection</a>
+      </div>
+
+      <!-- Delivery -->
+      <div class="order-mode-card" data-reveal>
+        <div class="order-mode-card__icon" aria-hidden="true">🚴</div>
+        <h2 class="order-mode-card__title">Delivery</h2>
+        <p class="order-mode-card__desc">Available across Portsmouth via three delivery platforms. Fresh from our kitchen to your door.</p>
+        <div class="order-delivery-platforms" aria-label="Delivery platforms">
+          <a href="#" class="delivery-platform-btn" style="background:#00CCBC;" aria-label="Order on Deliveroo">
+            <span class="delivery-platform-btn__name">Deliveroo</span>
+            <span class="delivery-platform-btn__arrow">→</span>
+          </a>
+          <a href="#" class="delivery-platform-btn" style="background:#ff8000;" aria-label="Order on Just Eat">
+            <span class="delivery-platform-btn__name">Just Eat</span>
+            <span class="delivery-platform-btn__arrow">→</span>
+          </a>
+          <a href="#" class="delivery-platform-btn" style="background:#000;" aria-label="Order on Uber Eats">
+            <span class="delivery-platform-btn__name">Uber Eats</span>
+            <span class="delivery-platform-btn__arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ ALLERGEN NOTE ══════════════════════════════════════════ -->
+<section class="allergen-note" aria-label="Allergen information">
+  <div class="container allergen-note__inner" data-reveal>
+    <span class="allergen-note__icon" aria-hidden="true">⚠️</span>
+    <p>Our kitchen handles nuts, gluten, dairy, and other common allergens. If you have a food allergy or intolerance, please let us know when ordering. Full allergen information is available on request — <a href="mailto:hello@lushbites.co.uk" class="allergen-note__link">hello@lushbites.co.uk</a></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">Lush <span class="nav__logo-fire">Bites</span></a>
+        <p>Portsmouth's premium smash burger restaurant. 135 Queen Street, PO1 3HY.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Instagram">IG</a>
+          <a href="#" class="footer__social" aria-label="TikTok">TT</a>
+          <a href="#" class="footer__social" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-title">Menu</p>
+        <ul class="footer__links">
+          <li><a href="menu.html#burgers" class="footer__link">Burgers</a></li>
+          <li><a href="menu.html#wings" class="footer__link">Wings</a></li>
+          <li><a href="menu.html#sides" class="footer__link">Sides</a></li>
+          <li><a href="menu.html#salads" class="footer__link">Salads</a></li>
+          <li><a href="menu.html#drinks" class="footer__link">Drinks</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Visit</p>
+        <ul class="footer__links">
+          <li><a href="story.html" class="footer__link">Our Story</a></li>
+          <li><a href="find-us.html" class="footer__link">Find Us</a></li>
+          <li><a href="order.html" class="footer__link">Order Online</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Hours</p>
+        <div style="display:flex; flex-direction:column; gap: 0.35rem;">
+          <span class="footer__link">Mon–Thu: 11–22:00</span>
+          <span class="footer__link">Fri–Sat: 11–23:00</span>
+          <span class="footer__link">Sun: 12–21:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Lush Bites Portsmouth. All rights reserved.</p>
+      <p><a href="#" class="footer__link">Privacy Policy</a> · <a href="#" class="footer__link">Allergen Info</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

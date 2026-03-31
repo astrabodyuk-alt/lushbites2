@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Stop Prompts — Lush Bites Smash Burger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-body: 'Archivo', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --lime: #BFF549;
+      --bg: #02040a;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --text-secondary: #99A1AF;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background-color: var(--lime); color: #000; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--lime); }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-orb-1 {
+      position: fixed; top: -15%; left: -10%; width: 700px; height: 700px;
+      background: #e84c1e; border-radius: 50%; filter: blur(280px);
+      opacity: 0.07; pointer-events: none; z-index: 0;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .bg-orb-2 {
+      position: fixed; bottom: -15%; right: -10%; width: 500px; height: 500px;
+      background: #f5f0e8; border-radius: 50%; filter: blur(220px);
+      opacity: 0.04; pointer-events: none; z-index: 0;
+      animation: orbFloat 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(40px, 25px); }
+    }
+
+    .confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+
+    .app {
+      position: relative; z-index: 1; display: flex; flex-direction: column;
+      height: 100vh; max-width: 960px; margin: 0 auto; padding: 2rem 2rem 0; width: 100%;
+    }
+
+    .header { text-align: center; padding: 1.5rem 0 1.75rem; flex-shrink: 0; }
+
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 0.9rem; margin-bottom: 1rem; border-radius: 980px;
+      border: 1px solid rgba(232, 76, 30, 0.35); background: rgba(232, 76, 30, 0.08);
+      color: #e84c1e; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.2em; backdrop-filter: blur(10px);
+    }
+    .header-badge svg { width: 12px; height: 12px; }
+
+    .header h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 900;
+      letter-spacing: -0.06em; line-height: 0.9; margin-bottom: 0.75rem;
+    }
+    .header h1 .fire { color: #e84c1e; }
+    .header h1 .faded {
+      background: linear-gradient(to right, #fff, rgba(255,255,255,0.4));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .header h1 .lime { color: var(--lime); }
+
+    .header p {
+      font-size: 0.95rem; color: var(--text-secondary); max-width: 500px;
+      margin: 0 auto; line-height: 1.5; font-weight: 300;
+    }
+    .header p span { color: #e84c1e; font-weight: 500; }
+
+    .tabs-row { display: flex; gap: 0.5rem; flex-shrink: 0; margin-bottom: 1.25rem; }
+
+    .tab {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 0.85rem 1rem; border-radius: 20px; border: 1px solid var(--card-border);
+      background: var(--card-bg); color: var(--text-secondary); font-size: 0.82rem;
+      font-weight: 600; cursor: pointer; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative; overflow: hidden;
+    }
+    .tab::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s ease; border-radius: 20px; }
+    .tab[data-tab="A"]::before { background: linear-gradient(135deg, rgba(232,76,30,0.14), transparent); }
+    .tab[data-tab="B"]::before { background: linear-gradient(135deg, rgba(96,165,250,0.12), transparent); }
+    .tab[data-tab="C"]::before { background: linear-gradient(135deg, rgba(191,245,73,0.12), transparent); }
+    .tab:hover { border-color: rgba(255,255,255,0.12); color: #fff; transform: translateY(-1px); }
+    .tab:hover::before { opacity: 1; }
+    .tab.active { border-color: rgba(255,255,255,0.15); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .tab.active::before { opacity: 1; }
+
+    .tab .tab-letter {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 10px; font-size: 0.75rem;
+      font-weight: 900; font-family: var(--font-display); flex-shrink: 0; transition: all 0.35s ease;
+    }
+    .tab[data-tab="A"] .tab-letter { background: rgba(232,76,30,0.2); color: #e84c1e; }
+    .tab[data-tab="B"] .tab-letter { background: rgba(96,165,250,0.2); color: #60a5fa; }
+    .tab[data-tab="C"] .tab-letter { background: rgba(191,245,73,0.2); color: var(--lime); }
+    .tab.active[data-tab="A"] .tab-letter { background: #e84c1e; color: #fff; }
+    .tab.active[data-tab="B"] .tab-letter { background: #60a5fa; color: #000; }
+    .tab.active[data-tab="C"] .tab-letter { background: var(--lime); color: #000; }
+    .tab .tab-name { position: relative; z-index: 1; }
+
+    .prompt-panel {
+      flex: 1; min-height: 0; display: flex; flex-direction: column;
+      background: linear-gradient(145deg, rgba(12,14,22,0.92), rgba(6,8,14,0.95));
+      border: 1px solid var(--card-border); border-radius: 28px 28px 0 0; overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--card-border); flex-shrink: 0;
+    }
+    .panel-header-left { display: flex; align-items: center; gap: 0.75rem; }
+
+    .panel-icon {
+      width: 36px; height: 36px; border-radius: 11px; display: flex;
+      align-items: center; justify-content: center; font-size: 0.9rem;
+      font-weight: 900; font-family: var(--font-display); flex-shrink: 0; transition: all 0.35s ease;
+    }
+    .panel-icon.a { background: #e84c1e; color: #fff; }
+    .panel-icon.b { background: #60a5fa; color: #000; }
+    .panel-icon.c { background: var(--lime); color: #000; }
+
+    .panel-meta .panel-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-secondary); font-weight: 700; }
+    .panel-meta .panel-title { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 1px; }
+    .panel-header-right { display: flex; align-items: center; gap: 0.5rem; }
+
+    .instruction-tag {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.3rem 0.75rem; border-radius: 980px; font-size: 0.65rem; font-weight: 600; white-space: nowrap;
+    }
+    .instruction-tag.img { background: rgba(232,76,30,0.08); color: #e84c1e; border: 1px solid rgba(232,76,30,0.2); }
+    .instruction-tag.img2 { background: rgba(96,165,250,0.08); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+    .instruction-tag.vid { background: rgba(191,245,73,0.08); color: var(--lime); border: 1px solid rgba(191,245,73,0.2); }
+    .instruction-tag svg { width: 11px; height: 11px; }
+
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 1.15rem;
+      border-radius: 980px; border: 1px solid var(--card-border); background: transparent;
+      color: var(--text-secondary); font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      transition: all 0.25s ease; font-family: var(--font-body);
+    }
+    .copy-btn:hover { background: var(--lime); color: #000; border-color: var(--lime); transform: scale(1.03); }
+    .copy-btn.copied { background: var(--lime); color: #000; border-color: var(--lime); }
+    .copy-btn svg { width: 14px; height: 14px; }
+
+    .panel-body { flex: 1; min-height: 0; position: relative; }
+    .prompt-content { display: none; position: absolute; inset: 0; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .prompt-content.active { display: block; opacity: 1; transform: translateY(0); }
+
+    .prompt-text {
+      font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.8;
+      color: rgba(255,255,255,0.72); white-space: pre-wrap; word-break: break-word;
+      padding: 1.75rem; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    .prompt-text::-webkit-scrollbar { width: 6px; }
+    .prompt-text::-webkit-scrollbar-track { background: transparent; }
+    .prompt-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+    /* Syntax-ish highlights for the prompts */
+    .kw { color: #e84c1e; font-weight: 500; }
+    .num { color: var(--lime); }
+    .em { color: #f5f0e8; }
+
+    @media (max-width: 640px) {
+      .app { padding: 1.25rem 1rem 0; }
+      .header { padding: 1rem 0 1.25rem; }
+      .header h1 { font-size: clamp(1.5rem, 8vw, 2.2rem); }
+      .header p { font-size: 0.85rem; }
+      .tab { padding: 0.7rem 0.5rem; font-size: 0.72rem; border-radius: 16px; }
+      .tab .tab-name { display: none; }
+      .tab .tab-letter { width: 32px; height: 32px; font-size: 0.85rem; }
+      .tab .tab-subtitle { display: block; font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px; }
+      .panel-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; }
+      .panel-header-right { width: 100%; justify-content: space-between; }
+      .prompt-text { padding: 1.25rem; font-size: 0.73rem; line-height: 1.7; }
+      .prompt-panel { border-radius: 22px 22px 0 0; }
+      .instruction-tag { font-size: 0.6rem; }
+    }
+    @media (min-width: 641px) { .tab .tab-subtitle { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-orb-1"></div>
+  <div class="bg-orb-2"></div>
+  <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+  <div class="app">
+    <header class="header">
+      <div class="header-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Scroll-Stop Prompter &mdash; Lush Bites Portsmouth
+      </div>
+      <h1><span class="fire">SMASH</span> <span class="faded">BURGER</span> <span class="lime">PROMPTS.</span></h1>
+      <p>Three coordinated prompts for <span>Nano Banana 2</span> + <span>Kling 3.0</span>. Click a tab, hit copy, get confetti.</p>
+    </header>
+
+    <div class="tabs-row">
+      <button class="tab active" data-tab="A" onclick="switchTab('A')">
+        <span class="tab-letter">A</span>
+        <span class="tab-name">Hero Product Shot</span>
+        <span class="tab-subtitle">Hero</span>
+      </button>
+      <button class="tab" data-tab="B" onclick="switchTab('B')">
+        <span class="tab-letter">B</span>
+        <span class="tab-name">Ingredient Explosion</span>
+        <span class="tab-subtitle">Explosion</span>
+      </button>
+      <button class="tab" data-tab="C" onclick="switchTab('C')">
+        <span class="tab-letter">C</span>
+        <span class="tab-name">Video Transition</span>
+        <span class="tab-subtitle">Video</span>
+      </button>
+    </div>
+
+    <div class="prompt-panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <div class="panel-icon a" id="panelIcon">A</div>
+          <div class="panel-meta">
+            <div class="panel-label" id="panelLabel">Prompt A &mdash; Nano Banana 2</div>
+            <div class="panel-title" id="panelTitle">Hero Product Shot</div>
+          </div>
+        </div>
+        <div class="panel-header-right">
+          <div class="instruction-tag img" id="panelTag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <span id="panelTagText">16:9 &middot; Nano Banana 2</span>
+          </div>
+          <button class="copy-btn" id="copyBtn" onclick="copyCurrentPrompt()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <div class="prompt-content active" id="contentA">
+          <div class="prompt-text">Cinematic food photography of the Lush Bites signature smash burger, centred in frame, shot from a slight low 3/4 angle — camera just below burger equator, tilted 8° upward to give the crown authority. Dark, moody studio lighting: primary key light from top-left at 45° casting dramatic raking shadows that reveal every sesame seed on the brioche bun crown individually. Warm rim light from behind-right using a deep fire-red gel (#e84c1e), creating an incandescent halo around the entire burger silhouette. Background: near-black #1a1a1a, vignetted to absolute black at frame edges. No other objects, no props.
+
+The burger, from bottom to top:
+— Golden toasted brioche bun base, sesame-studded, its toasted interior face faintly visible
+— Two smashed beef patties stacked, with deeply caramelised, lacy, paper-thin crispy edges at the front — Maillard crust rendered in extreme microscopic detail, caramelised fat catching the key light
+— American cheddar cheese draped luxuriously over both patties, melted to a glossy, cascading flow that spills over the patty edges
+— Crunchy iceberg lettuce with visible cell texture and translucent backlighting from the rim
+— Fresh beef tomato slice with moisture droplets beading on the skin
+— Pickle chips with translucent green-gold colour
+— Lush Bites special sauce in a rich amber-cream drip running down the left side, catching the key light with a warm gloss
+— Golden toasted brioche bun crown sitting slightly asymmetric, sesame seeds catching the raking key light individually
+
+To the right, slightly behind: casual tumble of skin-on fries, golden-brown with visible potato skin texture and sea salt crystals catching the light like tiny diamonds.
+
+Depth of field: razor sharp on the front caramelised patty edge and cheese cascade. Sauce drip sharp. Bun crown and fries in soft, creamy bokeh. Background pure black bokeh.
+
+Technical: Phase One IQ4 150MP equivalent render, 85mm portrait lens, f/2.0, ISO 400, 1/125s. Studio key light 1200Ws octabox + warm fire-red gel 400Ws rim from behind-right + black fill card left. 8K quality output, 16:9 landscape. Ultra-photorealistic, film grain Grade 2, colour-graded warm shadows with cool highlights. Appetite-triggering. No text, no logos, no watermarks.</div>
+        </div>
+        <div class="prompt-content" id="contentB">
+          <div class="prompt-text">High-speed freeze-frame food photography of the Lush Bites signature smash burger deconstructed into a dramatic vertical ingredient explosion. Every component is suspended simultaneously in mid-air against a near-black #1a1a1a background, as if the burger was blasted apart from its centre in a single freeze-frame moment at 1/10,000s shutter speed.
+
+All components float along a central vertical axis, maintaining the exact spatial stacking order of the assembled burger — the spatial memory of the stack perfectly readable in the explosion layout:
+
+01. Brioche bun crown — highest in frame, rising with a backwards tilt of 15°, individual sesame seeds separating from the surface, each seed casting its own micro-shadow
+02. Crunchy iceberg lettuce leaf — mid-air, curled edges unfurling, catching the key light translucently with visible cell structure
+03. Fresh beef tomato slice — cross-section face forward, glistening juice droplets spinning off the cut edge, suspended in mid-air orbits around the slice
+04. American cheddar cheese — mid-drape, the melted cheese stretched into a beautiful elongated tear, the lower portion still connected to the patty below, the upper portion floating free and undulating
+05. Top smashed beef patty — full caramelised lacy crust face toward camera, rotated 12° to show its three-dimensional form, crispy caramelised fat at every edge, wisps of steam frozen in the air around it
+06. Pickle chips — 3 slices scattered slightly off-axis, each tilted differently, translucent green-gold in the rim lighting
+07. Lush Bites special sauce ribbon — a golden-amber free-form splash frozen mid-arc between patties, catching the key light with a glossy peak
+08. Bottom smashed beef patty — showing its underside sear marks and caramelised underbelly, descended 4cm below original position, angled 8° to reveal depth
+09. Brioche bun base — dropped to lowest position, golden toasted interior face angled upward toward camera, 3-4 sesame seeds falling independently below it
+10. Scattered skin-on fries — 7-8 individual fries exploded to the right of the main vertical axis, tumbling at various angles, sea salt crystals orbiting each fry
+
+Lighting: identical to the assembled hero shot — same 45° key from top-left, same warm fire-red gel rim from behind-right (#e84c1e), each floating ingredient with its own micro-shadow beneath it. The rim light creates individual halos on each element, making the black background feel deep and infinite.
+
+Technical: Phase One IQ4 equivalent, focus-stacked across all floating elements simultaneously, f/11, same studio strobe setup and 4200K colour temperature as Prompt A. 16:9 landscape, 8K quality. Photorealistic food editorial. Same film grain and colour grade as the hero shot for visual continuity. Upload Prompt A output as style reference. No text, no logos.</div>
+        </div>
+        <div class="prompt-content" id="contentC">
+          <div class="prompt-text">START FRAME: The assembled Lush Bites smash burger — double smashed beef patties with caramelised lacy edges, melted American cheddar, golden brioche bun with sesame seeds, stacked with lettuce, tomato, pickles, and Lush Bites sauce — centred on a near-black #1a1a1a background. Warm fire-red rim light halo (#e84c1e). Skin-on fries tumbled to the right. Camera absolutely locked off, zero movement.
+
+END FRAME: The same burger fully deconstructed — every component (bun crown, lettuce, tomato, melted cheese drape, both patties, pickles, sauce ribbon, base bun, scattered fries) floating independently in a vertical explosion arrangement, same near-black background, same cinematic lighting, every element suspended and still.
+
+TRANSITION CHOREOGRAPHY:
+
+Frames 1-12 (0-0.5s): Burger sits completely still. The rim light pulses very slightly brighter for 3 frames, building anticipation.
+
+Frame 12 (0.5s): A single compression shockwave radiates outward from the burger centre — a subtle atmospheric pressure shimmer ring, barely visible. This is the trigger moment.
+
+Frames 12-30 (0.5-1.25s): BUNS initiate first. The bun crown lifts slowly at first (ease-in), then accelerates through its arc, rotating gently backwards to reveal its toasted interior. The bun base simultaneously begins dropping. Sesame seeds separate individually, each on its own lazy floating trajectory.
+
+Frames 25-50 (1.0-2.0s): VEGETABLES cascade. The lettuce leaf peels upward with a satisfying unfurling motion. The tomato slice floats free — juice droplets spinning off its edge in slow-motion orbital sprays. Pickles scatter off-axis with subtle spin on each.
+
+Frames 35-60 (1.45-2.5s): CHEESE stretches. The cheddar elongates in a gorgeous melted-cheese pull — the golden drape stretching upward toward the rising top patty while still connected to the lower patty. This stretch moment is the centrepiece. It holds for 12 frames before the connection breaks and the cheese becomes a floating free-form drape.
+
+Frames 45-70 (1.85-2.9s): PATTIES separate. The top patty rises and rotates 12° to display its full caramelised face to camera — crispy lacy edges catching the rim light spectacularly. The bottom patty descends, exposing its sear-marked underside. The Lush Bites sauce erupts in a slow amber ribbon arc between them.
+
+Frames 60-85 (2.5-3.5s): FRIES scatter to the right in a gentle cascade, each tumbling at its own rotation speed. Salt crystals orbit each individual fry.
+
+Frames 85-120 (3.5-5.0s): ALL ELEMENTS reach their final floating positions and ease to a full stop. Every ingredient suspended perfectly still. The rim light catches each element independently. Camera holds on this final arrangement for 1.5 seconds.
+
+MOVEMENT PRINCIPLES:
+— All motion ease-in / ease-out (cubic-bezier, no linear movement)
+— Each component moves on a slightly different timing offset — nothing moves simultaneously
+— Subtle 3D rotation on every element to reveal volume
+— Steam wisps frozen around both patties throughout entire animation
+— Zero camera movement — locked tripod shot throughout
+
+STYLE: Photorealistic. Cinematic 24fps. Warm fire-red rim lighting (#e84c1e) maintained throughout. Near-black #1a1a1a background. Premium food ASMR energy — slow, deliberate, tactile, deeply satisfying. Michelin-star food editorial meets Apple product launch reveal.
+
+DURATION: 5 seconds total
+ASPECT RATIO: 16:9
+QUALITY: Kling 3.0 high-quality mode, maximum resolution
+UPLOAD: Prompt A image as Start Frame reference, Prompt B image as End Frame reference</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiPieces = [];
+    let confettiAnimating = false;
+
+    function resizeConfetti() { confettiCanvas.width = window.innerWidth; confettiCanvas.height = window.innerHeight; }
+    resizeConfetti();
+    window.addEventListener('resize', resizeConfetti);
+
+    const confettiColors = ['#e84c1e', '#f5f0e8', '#BFF549', '#FACC15', '#60a5fa', '#f472b6', '#fff', '#ff6b35'];
+
+    function launchConfetti() {
+      confettiPieces = [];
+      for (let i = 0; i < 160; i++) {
+        confettiPieces.push({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 220,
+          y: window.innerHeight / 2,
+          vx: (Math.random() - 0.5) * 22,
+          vy: -(Math.random() * 20 + 7),
+          w: Math.random() * 11 + 4,
+          h: Math.random() * 6 + 3,
+          color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 16,
+          gravity: 0.38 + Math.random() * 0.18,
+          opacity: 1,
+          decay: 0.007 + Math.random() * 0.009,
+          shape: Math.random() > 0.5 ? 'rect' : 'circle'
+        });
+      }
+      if (!confettiAnimating) { confettiAnimating = true; animateConfetti(); }
+    }
+
+    function animateConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      let alive = 0;
+      for (const p of confettiPieces) {
+        if (p.opacity <= 0) continue;
+        alive++;
+        p.x += p.vx; p.vy += p.gravity; p.y += p.vy; p.vx *= 0.99;
+        p.rotation += p.rotationSpeed; p.opacity -= p.decay;
+        confettiCtx.save();
+        confettiCtx.translate(p.x, p.y);
+        confettiCtx.rotate((p.rotation * Math.PI) / 180);
+        confettiCtx.globalAlpha = Math.max(0, p.opacity);
+        confettiCtx.fillStyle = p.color;
+        if (p.shape === 'rect') { confettiCtx.fillRect(-p.w/2, -p.h/2, p.w, p.h); }
+        else { confettiCtx.beginPath(); confettiCtx.arc(0, 0, p.w/2, 0, Math.PI*2); confettiCtx.fill(); }
+        confettiCtx.restore();
+      }
+      if (alive > 0) { requestAnimationFrame(animateConfetti); }
+      else { confettiAnimating = false; confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }
+    }
+
+    const tabsData = {
+      A: {
+        label: 'Prompt A &mdash; Nano Banana 2',
+        title: 'Hero Product Shot',
+        iconClass: 'a',
+        tagClass: 'img',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+        tagText: '16:9 &middot; Nano Banana 2'
+      },
+      B: {
+        label: 'Prompt B &mdash; Nano Banana 2',
+        title: 'Ingredient Explosion',
+        iconClass: 'b',
+        tagClass: 'img2',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>',
+        tagText: '16:9 &middot; Reference Prompt A'
+      },
+      C: {
+        label: 'Prompt C &mdash; Kling 3.0',
+        title: 'Video Transition',
+        iconClass: 'c',
+        tagClass: 'vid',
+        tagIcon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+        tagText: 'Start: A &middot; End: B &middot; 5s'
+      }
+    };
+
+    let currentTab = 'A';
+
+    function switchTab(tab) {
+      if (tab === currentTab) return;
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+      const info = tabsData[tab];
+      const icon = document.getElementById('panelIcon');
+      icon.textContent = tab;
+      icon.className = 'panel-icon ' + info.iconClass;
+      document.getElementById('panelLabel').innerHTML = info.label;
+      document.getElementById('panelTitle').textContent = info.title;
+      const tag = document.getElementById('panelTag');
+      tag.className = 'instruction-tag ' + info.tagClass;
+      tag.innerHTML = info.tagIcon + ' <span>' + info.tagText + '</span>';
+      const btn = document.getElementById('copyBtn');
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+      document.querySelectorAll('.prompt-content').forEach(c => c.classList.remove('active'));
+      requestAnimationFrame(() => { document.getElementById('content' + tab).classList.add('active'); });
+    }
+
+    function copyCurrentPrompt() {
+      const content = document.querySelector('.prompt-content.active .prompt-text');
+      const text = content.textContent;
+      const btn = document.getElementById('copyBtn');
+      navigator.clipboard.writeText(text).then(() => {
+        launchConfetti();
+        btn.classList.add('copied');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+        }, 2000);
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '1') switchTab('A');
+      if (e.key === '2') switchTab('B');
+      if (e.key === '3') switchTab('C');
+      if ((e.metaKey || e.ctrlKey) && e.key === 'c' && !window.getSelection().toString()) {
+        e.preventDefault();
+        copyCurrentPrompt();
+      }
+    });
+  </script>
+</body>
+</html>

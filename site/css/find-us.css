@@ -1,0 +1,208 @@
+/* ─────────────────────────────────────────────────────────────
+   LUSH BITES — Find Us Page Styles
+   ───────────────────────────────────────────────────────────── */
+
+.findus-header {
+  background: var(--c-dark);
+  padding-top: calc(var(--nav-h) + clamp(var(--sp-12), 6vw, var(--sp-24)));
+  padding-bottom: clamp(var(--sp-12), 6vw, var(--sp-24));
+}
+
+.findus-header__title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--c-cream);
+}
+
+.findus-header__title em {
+  color: var(--c-fire);
+  font-style: italic;
+}
+
+/* ══ BODY GRID ════════════════════════════════════════════════ */
+.findus-body {
+  background: var(--c-dark);
+}
+
+.findus-body__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--sp-8), 4vw, var(--sp-16));
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .findus-body__grid { grid-template-columns: 1fr; }
+}
+
+/* ══ MAP ══════════════════════════════════════════════════════ */
+.findus-map {
+  aspect-ratio: 4/5;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: var(--c-brown);
+  border: 1px solid rgba(245,240,232,.08);
+  position: sticky;
+  top: calc(var(--nav-h) + 1rem);
+}
+
+.findus-map__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  text-align: center;
+  color: var(--c-muted);
+}
+
+.findus-map__placeholder span {
+  font-size: 4rem;
+  display: block;
+}
+
+.findus-map__placeholder p {
+  font-size: 1rem;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+.findus-map__placeholder small {
+  font-size: 0.8rem;
+  color: rgba(245,240,232,.3);
+  margin-bottom: var(--sp-2);
+}
+
+/* ══ DETAILS PANEL ════════════════════════════════════════════ */
+.findus-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
+}
+
+.findus-detail-block {
+  padding-bottom: var(--sp-8);
+  border-bottom: 1px solid rgba(245,240,232,.08);
+}
+.findus-detail-block:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.findus-detail-block__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-fire);
+  font-family: var(--font-body);
+  margin-bottom: var(--sp-4);
+}
+
+.findus-address {
+  font-style: normal;
+  font-size: 1.25rem;
+  color: var(--c-cream);
+  line-height: 1.6;
+  margin-bottom: var(--sp-4);
+}
+
+/* ══ HOURS TABLE ══════════════════════════════════════════════ */
+.findus-hours-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: var(--sp-4);
+}
+
+.findus-hours-table th,
+.findus-hours-table td {
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid rgba(245,240,232,.06);
+  font-size: 0.9375rem;
+}
+
+.findus-hours-table th {
+  font-weight: 500;
+  color: var(--c-muted);
+  text-align: left;
+  padding-right: var(--sp-6);
+}
+
+.findus-hours-table td {
+  color: var(--c-cream);
+  font-weight: 600;
+  text-align: right;
+}
+
+.findus-hours-note {
+  font-size: 0.8125rem;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* ══ TRANSPORT ════════════════════════════════════════════════ */
+.findus-transport {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.findus-transport__item {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+
+.findus-transport__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.findus-transport__item strong {
+  display: block;
+  color: var(--c-cream);
+  font-size: 0.9375rem;
+  margin-bottom: 2px;
+}
+
+.findus-transport__item p {
+  font-size: 0.875rem;
+  color: var(--c-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ══ CONTACT ══════════════════════════════════════════════════ */
+.findus-contact-link {
+  font-size: 1rem;
+  color: var(--c-fire);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(232,76,30,.35);
+  transition: text-decoration-color var(--t-fast);
+}
+.findus-contact-link:hover {
+  text-decoration-color: var(--c-fire);
+}
+
+/* ══ DELIVERY SECTION ════════════════════════════════════════ */
+.findus-delivery {
+  background: var(--c-brown);
+  border-top: 1px solid rgba(245,240,232,.06);
+}
+
+.findus-delivery__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+  flex-wrap: wrap;
+}
+
+.findus-delivery-badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}

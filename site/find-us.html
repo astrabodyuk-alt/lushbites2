@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Us — Lush Bites Portsmouth</title>
+  <meta name="description" content="Lush Bites is at 135 Queen Street, Portsmouth PO1 3HY. Open 7 days a week. Get directions, check opening hours, and find us on the map.">
+  <link rel="canonical" href="https://lushbites.co.uk/find-us">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Lush Bites",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "135 Queen Street",
+      "addressLocality": "Portsmouth",
+      "postalCode": "PO1 3HY",
+      "addressCountry": "GB"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "11:00", "closes": "22:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "11:00", "closes": "23:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "12:00", "closes": "21:00" }
+    ],
+    "hasMap": "https://maps.google.com/?q=135+Queen+Street+Portsmouth+PO1+3HY"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/find-us.css">
+</head>
+
+<body>
+
+<nav class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo">Lush <span class="nav__logo-fire">Bites</span></a>
+    <ul class="nav__links">
+      <li><a href="menu.html" class="nav__link">Menu</a></li>
+      <li><a href="story.html" class="nav__link">Our Story</a></li>
+      <li><a href="order.html" class="nav__link">Order</a></li>
+      <li><a href="find-us.html" class="nav__link active">Find Us</a></li>
+    </ul>
+    <a href="order.html" class="btn btn--fire btn--sm nav__cta">Order Now</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav__mobile-menu" id="mobileMenu">
+  <a href="menu.html" class="nav__link">Menu</a>
+  <a href="story.html" class="nav__link">Our Story</a>
+  <a href="order.html" class="nav__link">Order</a>
+  <a href="find-us.html" class="nav__link active">Find Us</a>
+  <a href="order.html" class="btn btn--fire">Order Now</a>
+</div>
+
+<!-- ══ PAGE HEADER ══════════════════════════════════════════ -->
+<header class="findus-header">
+  <div class="container">
+    <p class="section-label" data-reveal>Portsmouth City Centre</p>
+    <h1 class="findus-header__title" data-reveal>Come find us.<br><em>135 Queen Street.</em></h1>
+  </div>
+</header>
+
+<!-- ══ MAP + DETAILS ═════════════════════════════════════════ -->
+<section class="section findus-body" aria-label="Location details">
+  <div class="container findus-body__grid">
+
+    <!-- MAP EMBED -->
+    <div class="findus-map" data-reveal="left" aria-label="Map showing Lush Bites location">
+      <!-- Google Maps embed — replace with live embed code -->
+      <div class="findus-map__placeholder">
+        <span aria-hidden="true">🗺️</span>
+        <p>Google Maps embed</p>
+        <small>135 Queen Street, Portsmouth PO1 3HY</small>
+        <a href="https://maps.google.com/?q=135+Queen+Street+Portsmouth+PO1+3HY"
+           class="btn btn--fire btn--sm"
+           target="_blank"
+           rel="noopener noreferrer">Open in Maps</a>
+      </div>
+      <!-- Live embed example (uncomment and replace src):
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!..."
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" title="Lush Bites location map">
+      </iframe>
+      -->
+    </div>
+
+    <!-- DETAILS PANEL -->
+    <div class="findus-details" data-reveal="right">
+
+      <div class="findus-detail-block">
+        <h2 class="findus-detail-block__title">Address</h2>
+        <address class="findus-address">
+          135 Queen Street<br>
+          Portsmouth<br>
+          PO1 3HY
+        </address>
+        <a href="https://maps.google.com/?q=135+Queen+Street+Portsmouth+PO1+3HY"
+           class="btn btn--fire"
+           target="_blank"
+           rel="noopener noreferrer">
+          Get Directions →
+        </a>
+      </div>
+
+      <div class="findus-detail-block">
+        <h2 class="findus-detail-block__title">Opening Hours</h2>
+        <table class="findus-hours-table" role="table" aria-label="Opening hours">
+          <tbody>
+            <tr>
+              <th scope="row">Monday – Thursday</th>
+              <td>11:00 – 22:00</td>
+            </tr>
+            <tr>
+              <th scope="row">Friday – Saturday</th>
+              <td>11:00 – 23:00</td>
+            </tr>
+            <tr>
+              <th scope="row">Sunday</th>
+              <td>12:00 – 21:00</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="findus-hours-note">Walk-ins always welcome. No reservation required.</p>
+      </div>
+
+      <div class="findus-detail-block">
+        <h2 class="findus-detail-block__title">Getting Here</h2>
+        <ul class="findus-transport" role="list">
+          <li class="findus-transport__item">
+            <span class="findus-transport__icon" aria-hidden="true">🚌</span>
+            <div>
+              <strong>Bus</strong>
+              <p>Multiple routes serve Queen Street. Stop within 2 mins walk.</p>
+            </div>
+          </li>
+          <li class="findus-transport__item">
+            <span class="findus-transport__icon" aria-hidden="true">🅿️</span>
+            <div>
+              <strong>Parking</strong>
+              <p>Gunwharf Quays car park — 5 min walk. Street parking available nearby.</p>
+            </div>
+          </li>
+          <li class="findus-transport__item">
+            <span class="findus-transport__icon" aria-hidden="true">🚶</span>
+            <div>
+              <strong>On foot</strong>
+              <p>12 minutes from Portsmouth Harbour station. 8 minutes from Gunwharf Quays.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="findus-detail-block">
+        <h2 class="findus-detail-block__title">Contact</h2>
+        <p style="font-size:.9375rem; color:var(--c-muted); margin-bottom: 0.5rem;">
+          For enquiries, group bookings, or allergen information:
+        </p>
+        <a href="mailto:hello@lushbites.co.uk" class="findus-contact-link">hello@lushbites.co.uk</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAN'T MAKE IT? ══════════════════════════════════════════ -->
+<section class="section findus-delivery" aria-label="Delivery option">
+  <div class="container findus-delivery__inner" data-reveal>
+    <div>
+      <p class="section-label">Can't Make It?</p>
+      <h2 class="section-title">We deliver across <em>Portsmouth.</em></h2>
+      <p class="section-body" style="margin-bottom: 1.5rem;">Order via Deliveroo, Just Eat, or Uber Eats — fresh from our kitchen to your door.</p>
+      <a href="order.html" class="btn btn--fire btn--lg">Order Delivery</a>
+    </div>
+    <div class="findus-delivery-badges" aria-label="Delivery platforms">
+      <span class="delivery-badge delivery-badge--deliveroo" style="font-size:1rem; padding: 10px 24px;">Deliveroo</span>
+      <span class="delivery-badge delivery-badge--justeat" style="font-size:1rem; padding: 10px 24px;">Just Eat</span>
+      <span class="delivery-badge delivery-badge--uber" style="font-size:1rem; padding: 10px 24px;">Uber Eats</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">Lush <span class="nav__logo-fire">Bites</span></a>
+        <p>Portsmouth's premium smash burger restaurant. 135 Queen Street, PO1 3HY.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Instagram">IG</a>
+          <a href="#" class="footer__social" aria-label="TikTok">TT</a>
+          <a href="#" class="footer__social" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-title">Menu</p>
+        <ul class="footer__links">
+          <li><a href="menu.html#burgers" class="footer__link">Burgers</a></li>
+          <li><a href="menu.html#wings" class="footer__link">Wings</a></li>
+          <li><a href="menu.html#sides" class="footer__link">Sides</a></li>
+          <li><a href="menu.html#salads" class="footer__link">Salads</a></li>
+          <li><a href="menu.html#drinks" class="footer__link">Drinks</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Visit</p>
+        <ul class="footer__links">
+          <li><a href="story.html" class="footer__link">Our Story</a></li>
+          <li><a href="find-us.html" class="footer__link">Find Us</a></li>
+          <li><a href="order.html" class="footer__link">Order Online</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Hours</p>
+        <div style="display:flex; flex-direction:column; gap: 0.35rem;">
+          <span class="footer__link">Mon–Thu: 11–22:00</span>
+          <span class="footer__link">Fri–Sat: 11–23:00</span>
+          <span class="footer__link">Sun: 12–21:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Lush Bites Portsmouth. All rights reserved.</p>
+      <p><a href="#" class="footer__link">Privacy Policy</a> · <a href="#" class="footer__link">Allergen Info</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

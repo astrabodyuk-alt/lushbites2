@@ -1,0 +1,179 @@
+/* ─────────────────────────────────────────────────────────────
+   LUSH BITES — Order Page Styles
+   ───────────────────────────────────────────────────────────── */
+
+.order-header {
+  background: var(--c-dark);
+  padding-top: calc(var(--nav-h) + clamp(var(--sp-12), 6vw, var(--sp-24)));
+  padding-bottom: clamp(var(--sp-12), 6vw, var(--sp-24));
+}
+
+.order-header__title {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--c-cream);
+  margin-bottom: var(--sp-3);
+}
+
+.order-header__title em {
+  color: var(--c-fire);
+  font-style: italic;
+}
+
+.order-header__sub {
+  font-size: 1.0625rem;
+  color: var(--c-muted);
+}
+
+/* ══ ORDER PAGE SECTION ══════════════════════════════════════ */
+.order-page-section {
+  background: var(--c-dark);
+}
+
+.order-modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .order-modes-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+}
+
+/* ══ ORDER MODE CARDS ════════════════════════════════════════ */
+.order-mode-card {
+  background: var(--c-brown);
+  border: 1px solid rgba(245,240,232,.06);
+  border-radius: var(--r-xl);
+  padding: var(--sp-8) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: relative;
+}
+
+.order-mode-card--featured {
+  border-color: var(--c-fire);
+  background: #2d1810;
+}
+
+.order-mode-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--c-fire);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+}
+
+.order-mode-card__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.order-mode-card__title {
+  font-size: 1.75rem;
+  color: var(--c-cream);
+}
+
+.order-mode-card__desc {
+  font-size: 0.9375rem;
+  color: var(--c-muted);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ══ ORDER DETAIL ROWS ═══════════════════════════════════════ */
+.order-mode-card__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-4) 0;
+  border-top: 1px solid rgba(245,240,232,.08);
+  border-bottom: 1px solid rgba(245,240,232,.08);
+}
+
+.order-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  font-size: 0.875rem;
+}
+
+.order-detail-label {
+  color: var(--c-muted);
+  flex-shrink: 0;
+}
+
+.order-detail-row span:last-child {
+  color: var(--c-cream);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ══ DELIVERY PLATFORM BUTTONS ═══════════════════════════════ */
+.order-delivery-platforms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: auto;
+}
+
+.delivery-platform-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--r-md);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #fff;
+  transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.delivery-platform-btn:hover {
+  opacity: 0.9;
+  transform: translateX(3px);
+}
+
+/* ══ ALLERGEN NOTE ════════════════════════════════════════════ */
+.allergen-note {
+  background: var(--c-brown);
+  border-top: 1px solid rgba(245,240,232,.06);
+  padding-block: var(--sp-8);
+}
+
+.allergen-note__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.allergen-note__icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.allergen-note__inner p {
+  font-size: 0.875rem;
+  color: var(--c-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.allergen-note__link {
+  color: var(--c-fire);
+  text-decoration: underline;
+  text-decoration-color: rgba(232,76,30,.4);
+  transition: text-decoration-color var(--t-fast);
+}
+.allergen-note__link:hover {
+  text-decoration-color: var(--c-fire);
+}

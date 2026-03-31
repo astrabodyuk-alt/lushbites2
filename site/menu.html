@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — Lush Bites Portsmouth</title>
+  <meta name="description" content="Full menu at Lush Bites Portsmouth. Smash burgers, lamb, chicken, wings, loaded fries, salads, milkshakes and mocktails. 135 Queen Street PO1 3HY.">
+  <meta property="og:title" content="Menu — Lush Bites Portsmouth">
+  <meta property="og:type" content="restaurant.menu">
+  <link rel="canonical" href="https://lushbites.co.uk/menu">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Menu",
+    "name": "Lush Bites Menu",
+    "description": "Full menu including smash burgers, wings, loaded fries, salads and drinks",
+    "inLanguage": "en-GB",
+    "hasMenuSection": [
+      { "@type": "MenuSection", "name": "Burgers" },
+      { "@type": "MenuSection", "name": "Wings" },
+      { "@type": "MenuSection", "name": "Sides" },
+      { "@type": "MenuSection", "name": "Salads" },
+      { "@type": "MenuSection", "name": "Drinks" }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/menu.css">
+</head>
+
+<body>
+
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Lush Bites home">Lush <span class="nav__logo-fire">Bites</span></a>
+    <ul class="nav__links" role="list">
+      <li><a href="menu.html" class="nav__link active">Menu</a></li>
+      <li><a href="story.html" class="nav__link">Our Story</a></li>
+      <li><a href="order.html" class="nav__link">Order</a></li>
+      <li><a href="find-us.html" class="nav__link">Find Us</a></li>
+    </ul>
+    <a href="order.html" class="btn btn--fire btn--sm nav__cta">Order Now</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav__mobile-menu" id="mobileMenu">
+  <a href="menu.html" class="nav__link active">Menu</a>
+  <a href="story.html" class="nav__link">Our Story</a>
+  <a href="order.html" class="nav__link">Order</a>
+  <a href="find-us.html" class="nav__link">Find Us</a>
+  <a href="order.html" class="btn btn--fire">Order Now</a>
+</div>
+
+<!-- ══ PAGE HEADER ══════════════════════════════════════════ -->
+<header class="menu-header">
+  <div class="container menu-header__inner">
+    <p class="section-label" data-reveal>The Full Menu</p>
+    <h1 class="menu-header__title" data-reveal>Everything <em>on the menu</em></h1>
+    <p class="menu-header__sub" data-reveal>Smash burgers · Wings · Sides · Salads · Drinks<br>135 Queen Street, Portsmouth PO1 3HY</p>
+  </div>
+</header>
+
+<!-- ══ STICKY CATEGORY NAV ════════════════════════════════════ -->
+<div class="menu-cat-nav" id="menuCatNav" role="navigation" aria-label="Menu categories">
+  <div class="container">
+    <div class="cat-tabs menu-cat-tabs" role="tablist">
+      <button class="cat-tab active" role="tab" aria-selected="true" data-jump="burgers">Burgers</button>
+      <button class="cat-tab" role="tab" aria-selected="false" data-jump="wings">Wings</button>
+      <button class="cat-tab" role="tab" aria-selected="false" data-jump="sides">Sides</button>
+      <button class="cat-tab" role="tab" aria-selected="false" data-jump="salads">Salads</button>
+      <button class="cat-tab" role="tab" aria-selected="false" data-jump="drinks">Drinks</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BURGERS ════════════════════════════════════════════════ -->
+<section class="section menu-section" id="burgers" aria-labelledby="burgers-title">
+  <div class="container">
+    <div class="menu-section__header" data-reveal>
+      <span class="menu-section__emoji" aria-hidden="true">🍔</span>
+      <div>
+        <h2 class="menu-section__title" id="burgers-title">Burgers</h2>
+        <p class="menu-section__sub">Fresh beef, lamb, and chicken — all smashed to order</p>
+      </div>
+    </div>
+
+    <div class="menu-subsection" data-reveal>
+      <h3 class="menu-subsection__label">Beef Smash Burgers</h3>
+    </div>
+    <div class="product-grid" id="beef-burgers">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍔<span class="product-card__badge">Best Seller</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Devil's Bite</h3>
+          <p class="product-card__desc">Double smashed beef patty, American cheddar, pickled jalapeños, crispy onions, Devil's sauce, toasted brioche bun.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£10.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🥓</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">BBQ Bacon Cheeseburger</h3>
+          <p class="product-card__desc">Double smashed beef patty, streaky bacon, smoked cheddar, BBQ sauce, pickles, lettuce, toasted brioche bun.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£11.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🧅</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Classic Smash</h3>
+          <p class="product-card__desc">Double smashed beef patty, American cheddar, American mustard, pickles, white onion, toasted brioche bun. The original.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£9.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="menu-subsection" data-reveal>
+      <h3 class="menu-subsection__label">Lamb Smash Burger</h3>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🐑<span class="product-card__badge">Signature</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Spicy Lamb Smash</h3>
+          <p class="product-card__desc">Double smashed spiced lamb patty, harissa mayo, pickled red onion, fresh mint, gem lettuce, toasted brioche bun.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£12.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="menu-subsection" data-reveal>
+      <h3 class="menu-subsection__label">Chicken Burgers</h3>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍗</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Classic Chicken</h3>
+          <p class="product-card__desc">Crispy buttermilk chicken fillet, iceberg lettuce, tomato, garlic mayo, toasted brioche bun.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£10.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🧀</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">BBQ Bacon &amp; Cheddar Chicken</h3>
+          <p class="product-card__desc">Crispy buttermilk chicken fillet, streaky bacon, cheddar, BBQ sauce, pickles, toasted brioche bun.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£11.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WINGS ══════════════════════════════════════════════════ -->
+<section class="section menu-section menu-section--alt" id="wings" aria-labelledby="wings-title">
+  <div class="container">
+    <div class="menu-section__header" data-reveal>
+      <span class="menu-section__emoji" aria-hidden="true">🍗</span>
+      <div>
+        <h2 class="menu-section__title" id="wings-title">Wings</h2>
+        <p class="menu-section__sub">Choose your flavour · 5pc or 10pc</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🔥<span class="product-card__badge">Classic</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Buffalo Wings</h3>
+          <p class="product-card__desc">Crispy wings tossed in classic buffalo sauce. Tangy, buttery, and fiery. Served with celery sticks and blue cheese dip.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">5pc £6.50 · 10pc £11.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🌿</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Southern Fried Wings</h3>
+          <p class="product-card__desc">Classic southern seasoning, deep-fried to golden crisp perfection. Served with ranch dip.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">5pc £6.50 · 10pc £11.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍯</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Texan Sticky BBQ</h3>
+          <p class="product-card__desc">Slow-cooked BBQ glaze, smoked paprika, honey finish. Sticky, rich, and deeply satisfying.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">5pc £6.50 · 10pc £11.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🧄</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Garlic Parmesan</h3>
+          <p class="product-card__desc">Roasted garlic butter glaze with aged Parmesan dust and fresh herbs. Rich, savoury, addictive.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">5pc £6.50 · 10pc £11.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🥭<span class="product-card__badge">Hot</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Mango Habanero</h3>
+          <p class="product-card__desc">Sweet mango glaze meets slow habanero heat. Fruity up front, proper burn on the finish.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">5pc £6.50 · 10pc £11.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIDES ══════════════════════════════════════════════════ -->
+<section class="section menu-section" id="sides" aria-labelledby="sides-title">
+  <div class="container">
+    <div class="menu-section__header" data-reveal>
+      <span class="menu-section__emoji" aria-hidden="true">🍟</span>
+      <div>
+        <h2 class="menu-section__title" id="sides-title">Loaded Fries &amp; Sides</h2>
+        <p class="menu-section__sub">Proper sides, not an afterthought</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🧀<span class="product-card__badge">Fan Fave</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Cheesy Crinkle Fries</h3>
+          <p class="product-card__desc">Skin-on crinkle fries loaded with molten cheddar cheese sauce and crispy shallots.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£4.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🔥</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Classic Loaded Fries</h3>
+          <p class="product-card__desc">Skin-on fries topped with Lush Bites special sauce, pickled jalapeños, and American cheddar. A meal in itself.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£5.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🧆</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Mac Cheese Bites</h3>
+          <p class="product-card__desc">Crispy panko-crusted mac and cheese bites. Golden and shatteringly crisp outside, molten and oozing inside.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£4.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SALADS ═════════════════════════════════════════════════ -->
+<section class="section menu-section menu-section--alt" id="salads" aria-labelledby="salads-title">
+  <div class="container">
+    <div class="menu-section__header" data-reveal>
+      <span class="menu-section__emoji" aria-hidden="true">🥗</span>
+      <div>
+        <h2 class="menu-section__title" id="salads-title">Salads</h2>
+        <p class="menu-section__sub">Fresh, filling, and full of flavour</p>
+      </div>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🥩</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Beef Smash Salad</h3>
+          <p class="product-card__desc">Smashed beef patty over mixed greens, beef tomato, pickled red onions, Lush Bites special sauce dressing.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£9.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🐑</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Lamb Smash Salad</h3>
+          <p class="product-card__desc">Spiced lamb over gem lettuce, pomegranate seeds, cucumber ribbons, fresh mint, harissa dressing.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£10.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍗</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Chicken Salad</h3>
+          <p class="product-card__desc">Crispy chicken fillet strips over mixed greens, sweetcorn, cherry tomatoes, honey mustard dressing.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£9.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🌿<span class="product-card__badge">Veggie</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Veggie Salad</h3>
+          <p class="product-card__desc">Roasted spiced chickpeas, grilled halloumi, mixed leaves, sun-dried tomatoes, olives, tahini lemon dressing.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£8.50</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DRINKS ═════════════════════════════════════════════════ -->
+<section class="section menu-section" id="drinks" aria-labelledby="drinks-title">
+  <div class="container">
+    <div class="menu-section__header" data-reveal>
+      <span class="menu-section__emoji" aria-hidden="true">🥤</span>
+      <div>
+        <h2 class="menu-section__title" id="drinks-title">Drinks</h2>
+        <p class="menu-section__sub">Thick milkshakes and creative mocktails</p>
+      </div>
+    </div>
+
+    <div class="menu-subsection" data-reveal>
+      <h3 class="menu-subsection__label">Milkshakes</h3>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍪<span class="product-card__badge">Fan Fave</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Biscoff Milkshake</h3>
+          <p class="product-card__desc">Thick, creamy shake blended with Biscoff spread. Topped with crushed Biscoff biscuit crumble and caramel drizzle.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£5.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍫</div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Kinder Bueno Shake</h3>
+          <p class="product-card__desc">Creamy milkshake with Kinder Bueno blended throughout. Topped with chocolate drizzle and hazelnut crumble.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">£5.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="menu-subsection" data-reveal>
+      <h3 class="menu-subsection__label">Mocktails</h3>
+    </div>
+    <div class="product-grid">
+      <article class="product-card" data-reveal>
+        <div class="product-card__img">🍹<span class="product-card__badge">New</span></div>
+        <div class="product-card__body">
+          <h3 class="product-card__name">Seasonal Mocktails</h3>
+          <p class="product-card__desc">Our mocktail selection changes with the season. Ask in-store for today's flavours — always fresh, always creative.</p>
+          <div class="product-card__footer">
+            <span class="product-card__price">From £4.00</span>
+            <a href="order.html" class="btn btn--fire btn--sm">Order</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ORDER CTA STRIP ════════════════════════════════════════ -->
+<section class="menu-order-cta" aria-label="Order call to action">
+  <div class="container menu-order-cta__inner" data-reveal>
+    <div>
+      <h2 class="menu-order-cta__title">Ready to order?</h2>
+      <p class="menu-order-cta__sub">Dine in at 135 Queen Street, click &amp; collect, or get it delivered.</p>
+    </div>
+    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="order.html" class="btn btn--fire btn--lg">Order Now</a>
+      <a href="find-us.html" class="btn btn--ghost btn--lg">Find Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (shared) -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">Lush <span class="nav__logo-fire">Bites</span></a>
+        <p>Portsmouth's premium smash burger restaurant. 135 Queen Street, PO1 3HY. Serving fresh, never frozen.</p>
+        <div class="footer__socials">
+          <a href="#" class="footer__social" aria-label="Instagram">IG</a>
+          <a href="#" class="footer__social" aria-label="TikTok">TT</a>
+          <a href="#" class="footer__social" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer__col-title">Menu</p>
+        <ul class="footer__links">
+          <li><a href="menu.html#burgers" class="footer__link">Burgers</a></li>
+          <li><a href="menu.html#wings" class="footer__link">Wings</a></li>
+          <li><a href="menu.html#sides" class="footer__link">Sides</a></li>
+          <li><a href="menu.html#salads" class="footer__link">Salads</a></li>
+          <li><a href="menu.html#drinks" class="footer__link">Drinks</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Visit</p>
+        <ul class="footer__links">
+          <li><a href="story.html" class="footer__link">Our Story</a></li>
+          <li><a href="find-us.html" class="footer__link">Find Us</a></li>
+          <li><a href="order.html" class="footer__link">Order Online</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer__col-title">Hours</p>
+        <div style="display:flex; flex-direction:column; gap: 0.35rem;">
+          <span class="footer__link">Mon–Thu: 11–22:00</span>
+          <span class="footer__link">Fri–Sat: 11–23:00</span>
+          <span class="footer__link">Sun: 12–21:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Lush Bites Portsmouth. All rights reserved.</p>
+      <p><a href="#" class="footer__link">Privacy Policy</a> · <a href="#" class="footer__link">Allergen Info</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>

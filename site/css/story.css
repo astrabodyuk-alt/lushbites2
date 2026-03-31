@@ -1,0 +1,160 @@
+/* ─────────────────────────────────────────────────────────────
+   LUSH BITES — Story Page Styles
+   ───────────────────────────────────────────────────────────── */
+
+.story-hero {
+  background: var(--c-dark);
+  padding-top: calc(var(--nav-h) + clamp(var(--sp-16), 8vw, var(--sp-32)));
+  padding-bottom: clamp(var(--sp-16), 8vw, var(--sp-32));
+  border-bottom: 1px solid rgba(245,240,232,.08);
+}
+
+.story-hero__title {
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: var(--c-cream);
+  line-height: 1.05;
+  max-width: 800px;
+}
+
+.story-hero__title em {
+  color: var(--c-fire);
+  font-style: italic;
+}
+
+/* ══ CHAPTERS ════════════════════════════════════════════════ */
+.story-chapter {
+  background: var(--c-dark);
+}
+
+.story-chapter--dark {
+  background: var(--c-brown);
+  border-top: 1px solid rgba(245,240,232,.06);
+  border-bottom: 1px solid rgba(245,240,232,.06);
+}
+
+.story-chapter__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--sp-12), 6vw, var(--sp-24));
+  align-items: center;
+}
+
+.story-chapter__inner--reverse {
+  direction: rtl;
+}
+.story-chapter__inner--reverse > * {
+  direction: ltr;
+}
+
+@media (max-width: 768px) {
+  .story-chapter__inner,
+  .story-chapter__inner--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+}
+
+.story-chapter__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 6rem;
+  color: rgba(245,240,232,.04);
+  line-height: 1;
+  margin-bottom: -1rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.story-chapter__title {
+  font-size: clamp(1.75rem, 3vw, 2.6rem);
+  color: var(--c-cream);
+  margin-bottom: var(--sp-6);
+}
+
+.story-chapter__text p {
+  font-size: 1.0625rem;
+  color: var(--c-muted);
+  line-height: 1.75;
+  margin-bottom: var(--sp-4);
+  max-width: 52ch;
+}
+.story-chapter__text p:last-child { margin-bottom: 0; }
+
+.story-chapter__visual {
+  flex-shrink: 0;
+}
+
+.story-img-placeholder {
+  aspect-ratio: 4/5;
+  background: rgba(245,240,232,.03);
+  border: 1px dashed rgba(245,240,232,.12);
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  color: rgba(245,240,232,.18);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.story-img-placeholder span {
+  font-size: 4rem;
+  filter: grayscale(1) opacity(.2);
+}
+
+/* ══ FACTS STRIP ══════════════════════════════════════════════ */
+.story-facts {
+  background: var(--c-fire);
+  padding-block: clamp(var(--sp-12), 6vw, var(--sp-16));
+}
+
+.story-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-8);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .story-facts__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.story-fact__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #fff;
+  line-height: 1;
+  margin-bottom: var(--sp-2);
+}
+
+.story-fact__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.75);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ══ STORY CTA ════════════════════════════════════════════════ */
+.story-cta {
+  background: var(--c-dark);
+  padding-block: clamp(var(--sp-16), 8vw, var(--sp-32));
+  text-align: center;
+}
+
+.story-cta__title {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  color: var(--c-cream);
+  margin-bottom: var(--sp-4);
+}
+
+.story-cta__sub {
+  font-size: 1.125rem;
+  color: var(--c-muted);
+  margin-bottom: var(--sp-8);
+}

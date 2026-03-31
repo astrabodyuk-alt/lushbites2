@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Analysis — Lush Bites Portsmouth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────────── */
+  :root {
+    --brand-dark:    #1a1a1a;
+    --brand-fire:    #e84c1e;
+    --brand-cream:   #f5f0e8;
+    --brand-muted:   #b8a898;
+    --brand-light:   #fdfaf6;
+    --card-bg:       #fffefa;
+    --border:        #e8e0d4;
+    --text-body:     #2d2520;
+    --text-muted:    #8a7a6e;
+    --score-high:    #2d7a45;
+    --score-mid:     #c17c2a;
+    --score-low:     #c0392b;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: .025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+  html { font-size: 16px; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--brand-cream);
+    color: var(--text-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 920px; margin: 0 auto; padding: 60px 40px; }
+  h1, h2, h3 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; line-height: 1.2; }
+  h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--brand-dark); }
+  h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--brand-dark); }
+  h3 { font-size: 1.25rem; color: var(--brand-dark); }
+  h4 { font-size: .82rem; font-family: 'DM Sans', sans-serif; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-muted); margin-bottom: .4rem; }
+  p  { font-size: .975rem; color: var(--text-body); margin-bottom: 1rem; }
+  strong { font-weight: 600; }
+  em { font-family: 'Instrument Serif', serif; font-style: italic; }
+  a { color: var(--brand-fire); text-decoration: none; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+  /* COVER */
+  .cover { padding: 80px 0 60px; border-bottom: 2px solid var(--brand-fire); margin-bottom: 60px; position: relative; overflow: hidden; }
+  .cover-badge { display: inline-block; background: var(--brand-fire); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: .35em .9em; border-radius: 2px; margin-bottom: 1.5rem; }
+  .cover h1 { margin-bottom: .5rem; }
+  .cover-sub { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem; }
+  .cover-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .cover-meta-item { font-size: .85rem; color: var(--text-muted); }
+  .cover-meta-item strong { color: var(--text-body); display: block; font-size: .9rem; margin-bottom: .1rem; }
+  .cover-bg-num { position: absolute; right: -10px; top: 40px; font-family: 'Instrument Serif', serif; font-size: 12rem; color: var(--brand-fire); opacity: .06; line-height: 1; user-select: none; pointer-events: none; }
+
+  /* SECTION HEADERS */
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: 'Instrument Serif', serif; font-size: 3rem; color: var(--brand-fire); opacity: .22; line-height: 1; flex-shrink: 0; }
+
+  /* CARDS */
+  .card { background: var(--card-bg); border-left: 4px solid var(--brand-fire); border-radius: 6px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,.04); transition: box-shadow .2s ease; }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+  .card--neutral { border-left-color: var(--border); }
+  .card--warning { border-left-color: var(--score-mid); }
+  .card--success { border-left-color: var(--score-high); }
+
+  /* CARD GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+  .card-grid .card { margin-bottom: 0; }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .9rem; }
+  .tag { font-size: .7rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: .28em .8em; border-radius: 20px; background: var(--brand-cream); color: var(--text-muted); border: 1px solid var(--border); }
+  .tag--fire { background: #fef0eb; color: var(--brand-fire); border-color: #f5bba8; }
+  .tag--dark { background: var(--brand-dark); color: #fff; border-color: var(--brand-dark); }
+
+  /* COLOR SWATCHES */
+  .swatches { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(0,0,0,.1); }
+
+  /* SCORE BARS */
+  .score-row { display: flex; align-items: center; gap: .75rem; margin-bottom: .55rem; font-size: .875rem; }
+  .score-label { width: 155px; flex-shrink: 0; color: var(--text-muted); font-size: .82rem; }
+  .score-bar-wrap { flex: 1; background: var(--border); border-radius: 4px; height: 7px; overflow: hidden; }
+  .score-bar { height: 100%; border-radius: 4px; }
+  .score-val { width: 26px; text-align: right; font-weight: 700; font-size: .8rem; color: var(--text-body); }
+
+  /* COMPETITOR HEADER */
+  .competitor-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .competitor-score-badge { font-family: 'Instrument Serif', serif; font-size: 2.4rem; font-weight: 400; line-height: 1; color: var(--brand-fire); flex-shrink: 0; }
+  .competitor-score-badge span { font-size: .95rem; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--text-muted); }
+
+  /* PROS/CONS LIST */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 2rem; margin-bottom: 1rem; }
+  .two-col-item { font-size: .875rem; padding-left: 1.2rem; position: relative; line-height: 1.4; }
+  .two-col-item.positive::before { content: '✓'; position: absolute; left: 0; color: var(--score-high); font-size: .8rem; top: .1rem; }
+  .two-col-item.negative::before { content: '✕'; position: absolute; left: .1rem; color: var(--score-low); font-size: .72rem; top: .12rem; }
+
+  /* MATRIX TABLE */
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: .875rem; margin-bottom: 2rem; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .matrix-table th { background: var(--brand-dark); color: #fff; padding: .75rem 1rem; text-align: left; font-weight: 600; font-size: .78rem; letter-spacing: .05em; }
+  .matrix-table td { padding: .65rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .matrix-table tr:last-child td { border-bottom: none; font-weight: 700; background: #f7f4ef; }
+  .matrix-table tr:not(:last-child):hover td { background: #faf7f2; }
+  .score-cell { text-align: center; font-weight: 700; }
+  .score-high { color: var(--score-high); }
+  .score-mid  { color: var(--score-mid);  }
+  .score-low  { color: var(--score-low);  }
+
+  /* OPPORTUNITY GRID */
+  .opp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .opp-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; text-align: center; transition: transform .2s, box-shadow .2s; }
+  .opp-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+  .opp-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; color: var(--brand-fire); display: block; line-height: 1; margin-bottom: .35rem; }
+  .opp-label { font-size: .78rem; font-weight: 600; color: var(--text-body); }
+
+  /* PALETTE */
+  .palette-row { display: flex; gap: .65rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .palette-chip { flex: 1 1 115px; min-width: 95px; height: 68px; border-radius: 8px; display: flex; align-items: flex-end; padding: .45rem .7rem; font-size: .7rem; font-weight: 700; letter-spacing: .04em; }
+
+  /* UX PATTERNS */
+  .ux-pattern { display: flex; gap: 1rem; padding: 1rem 1.25rem; background: var(--card-bg); border-radius: 6px; margin-bottom: .65rem; border: 1px solid var(--border); align-items: flex-start; }
+  .ux-icon { font-size: 1.2rem; flex-shrink: 0; width: 1.8rem; text-align: center; padding-top: .1rem; }
+  .ux-content h4 { margin-bottom: .15rem; font-size: .78rem; color: var(--brand-fire); }
+  .ux-content p { font-size: .875rem; margin-bottom: 0; }
+
+  /* BUILD BRIEF — dark section */
+  .brief-section { background: var(--brand-dark); color: #fff; border-radius: 12px; padding: 2.5rem 2.5rem 2rem; margin-bottom: 2rem; }
+  .brief-section h2 { color: #fff; margin-bottom: .2rem; }
+  .brief-section h3 { color: var(--brand-fire); margin-bottom: .9rem; }
+  .brief-section h4 { color: rgba(255,255,255,.45); }
+  .brief-section p  { color: rgba(255,255,255,.78); }
+  .brief-section .card { background: rgba(255,255,255,.06); border-left-color: var(--brand-fire); border-radius: 6px; }
+  .brief-section .card p { color: rgba(255,255,255,.72); }
+  .brief-section .divider { border-color: rgba(255,255,255,.1); }
+  .brief-section .card h3 { color: var(--brand-fire); }
+  .brief-headline-option { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: .7rem; }
+  .brief-headline-option .opt-num { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-fire); margin-bottom: .25rem; }
+  .brief-headline-option .headline { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: #fff; line-height: 1.25; }
+  .brief-ux-step { display: flex; gap: 1rem; padding: .9rem 1.25rem; background: rgba(255,255,255,.05); border-radius: 6px; margin-bottom: .6rem; align-items: flex-start; }
+  .brief-ux-step .step-num { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: var(--brand-fire); flex-shrink: 0; width: 1.6rem; line-height: 1; }
+  .brief-ux-step .step-content h4 { color: rgba(255,255,255,.5); margin-bottom: .15rem; }
+  .brief-ux-step .step-content p { color: rgba(255,255,255,.72); font-size: .875rem; margin-bottom: 0; }
+  .brief-section .tag { background: rgba(255,255,255,.1); color: rgba(255,255,255,.65); border-color: rgba(255,255,255,.15); }
+  .brief-section .tag--fire { background: rgba(232,76,30,.22); color: var(--brand-fire); border-color: rgba(232,76,30,.4); }
+  code { background: rgba(255,255,255,.12); padding: .15em .45em; border-radius: 3px; font-size: .82em; }
+
+  /* FLOW CONNECTOR */
+  .flow-connector { text-align: center; color: var(--brand-fire); opacity: .4; font-size: 1.2rem; padding: .2rem 0; }
+
+  /* REPORT FOOTER */
+  .report-footer { border-top: 2px solid var(--brand-fire); padding-top: 2rem; margin-top: 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .report-footer-brand { font-family: 'Instrument Serif', serif; font-size: 1.1rem; color: var(--brand-dark); }
+  .report-footer-meta { font-size: .8rem; color: var(--text-muted); text-align: right; }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; }
+    body::before { display: none; }
+    .cover { page-break-after: always; }
+    .card { box-shadow: none; }
+    .brief-section { background: #1a1a1a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .matrix-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .page { padding: 32px 20px; }
+    .cover-bg-num { display: none; }
+    .two-col { grid-template-columns: 1fr; }
+    .matrix-table { font-size: .75rem; }
+    .matrix-table td, .matrix-table th { padding: .5rem .6rem; }
+    .brief-section { padding: 1.75rem 1.25rem; }
+    .competitor-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════
+       COVER
+  ══════════════════════════════════════════════════════════ -->
+  <section class="cover">
+    <div class="cover-bg-num">CA</div>
+    <div class="cover-badge">Competitive Analysis · March 2026</div>
+    <h1>Portsmouth Burger<br><em>Market Intelligence</em></h1>
+    <p class="cover-sub">A strategic web &amp; design audit for Lush Bites Portsmouth</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>Client</strong>Lush Bites Portsmouth</div>
+      <div class="cover-meta-item"><strong>Address</strong>135 Queen Street · PO1 3HY</div>
+      <div class="cover-meta-item"><strong>Sector</strong>Smash Burger / Fast Casual</div>
+      <div class="cover-meta-item"><strong>Date</strong>31 March 2026</div>
+      <div class="cover-meta-item"><strong>Scope</strong>5 Competitors · 4 Inspiration Sites</div>
+    </div>
+    <div class="tags">
+      <span class="tag tag--fire">Web Intelligence</span>
+      <span class="tag tag--fire">UX Analysis</span>
+      <span class="tag tag--fire">Design Direction</span>
+      <span class="tag tag--dark">Build Brief</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       00 — EXECUTIVE SUMMARY
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">00</div>
+      <h2>Executive Summary</h2>
+    </div>
+    <div class="card">
+      <p>Portsmouth's burger scene is <strong>entirely uncontested at the premium digital end</strong>. Our audit of 5 local competitors and 4 global inspiration brands reveals a critical gap: no Portsmouth burger brand owns a premium website, tells a compelling brand story, or provides a seamless online experience. The highest-scoring local competitor rated only <strong>40/80</strong> on our 8-point criteria — against a global benchmark of 70+.</p>
+      <p>A new chain (<strong>SoBe Burger</strong>, Smashburger brand, Sessions-backed) has confirmed a Portsmouth opening. Lush Bites has a narrow window to establish category dominance before that arrival.</p>
+      <p style="margin-bottom:0;">Our recommendation: build a scroll-animated, premium website that tells the story of the smash, anchors Lush Bites as Portsmouth's home-grown quality-first brand, and converts every visitor into an order or a return visit. The competitive landscape has handed Lush Bites a gift. This report shows exactly how to take it.</p>
+    </div>
+    <div class="opp-grid">
+      <div class="opp-card"><span class="opp-num">5</span><div class="opp-label">Competitors Audited</div></div>
+      <div class="opp-card"><span class="opp-num">0</span><div class="opp-label">with Premium Web Presence</div></div>
+      <div class="opp-card"><span class="opp-num">4</span><div class="opp-label">Global Brands Scraped</div></div>
+      <div class="opp-card"><span class="opp-num">7</span><div class="opp-label">Critical Market Gaps</div></div>
+      <div class="opp-card"><span class="opp-num">40</span><div class="opp-label">Best Local Score /80</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       01 — COMPETITOR PROFILES
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>Portsmouth Competitor Profiles</h2>
+    </div>
+
+    <!-- 7Bone -->
+    <div class="card">
+      <div class="competitor-header">
+        <div>
+          <h4>Competitor 01 · Top Rated</h4>
+          <h3 style="font-size:1.4rem; margin-bottom:.3rem;">7Bone Burger Co</h3>
+          <p style="font-size:.82rem; color: var(--text-muted); margin-bottom:.75rem;">16 Guildhall Walk · 7bone.co.uk · Multi-site chain</p>
+          <div class="swatches">
+            <div class="swatch" style="background:#EC008C;" title="#EC008C"></div>
+            <div class="swatch" style="background:#FBD81C;" title="#FBD81C"></div>
+            <div class="swatch" style="background:#000;" title="#000000"></div>
+          </div>
+        </div>
+        <div class="competitor-score-badge">40<span>/80</span></div>
+      </div>
+      <div class="score-row"><span class="score-label">Web Presence</span><div class="score-bar-wrap"><div class="score-bar" style="width:40%; background:var(--score-mid)"></div></div><span class="score-val">4</span></div>
+      <div class="score-row"><span class="score-label">Brand Identity</span><div class="score-bar-wrap"><div class="score-bar" style="width:60%; background:var(--score-mid)"></div></div><span class="score-val">6</span></div>
+      <div class="score-row"><span class="score-label">Visual Design</span><div class="score-bar-wrap"><div class="score-bar" style="width:50%; background:var(--score-mid)"></div></div><span class="score-val">5</span></div>
+      <div class="score-row"><span class="score-label">Online Ordering</span><div class="score-bar-wrap"><div class="score-bar" style="width:50%; background:var(--score-mid)"></div></div><span class="score-val">5</span></div>
+      <div class="score-row"><span class="score-label">Mobile Experience</span><div class="score-bar-wrap"><div class="score-bar" style="width:40%; background:var(--score-low)"></div></div><span class="score-val">4</span></div>
+      <div class="score-row"><span class="score-label">Trust Signals</span><div class="score-bar-wrap"><div class="score-bar" style="width:50%; background:var(--score-mid)"></div></div><span class="score-val">5</span></div>
+      <hr class="divider" style="margin:1rem 0;">
+      <div class="two-col">
+        <div class="two-col-item positive">Loyalty program + Click &amp; Collect</div>
+        <div class="two-col-item positive">Multi-location legitimacy signal</div>
+        <div class="two-col-item positive">Strong TripAdvisor presence</div>
+        <div class="two-col-item negative">CMS bug: PHP objects visible in page body</div>
+        <div class="two-col-item negative">No prices anywhere on the website</div>
+        <div class="two-col-item negative">GIF-heavy — poor load performance</div>
+        <div class="two-col-item negative">Niche pink aesthetic alienates mainstream</div>
+      </div>
+      <div class="tags"><span class="tag">Strong Brand</span><span class="tag">Broken UX</span><span class="tag tag--fire">Top Competitor</span></div>
+    </div>
+
+    <!-- Messy Chef -->
+    <div class="card card--warning">
+      <div class="competitor-header">
+        <div>
+          <h4>Competitor 02 · Delivery Dominant</h4>
+          <h3 style="font-size:1.4rem; margin-bottom:.3rem;">Messy Chef</h3>
+          <p style="font-size:.82rem; color: var(--text-muted); margin-bottom:.5rem;">Southsea · messycheforders.choiceqr.com · Independent</p>
+        </div>
+        <div class="competitor-score-badge">28<span>/80</span></div>
+      </div>
+      <div class="score-row"><span class="score-label">Web Presence</span><div class="score-bar-wrap"><div class="score-bar" style="width:10%; background:var(--score-low)"></div></div><span class="score-val">1</span></div>
+      <div class="score-row"><span class="score-label">Brand Identity</span><div class="score-bar-wrap"><div class="score-bar" style="width:30%; background:var(--score-low)"></div></div><span class="score-val">3</span></div>
+      <div class="score-row"><span class="score-label">Online Ordering</span><div class="score-bar-wrap"><div class="score-bar" style="width:70%; background:var(--score-mid)"></div></div><span class="score-val">7</span></div>
+      <div class="score-row"><span class="score-label">Content &amp; Story</span><div class="score-bar-wrap"><div class="score-bar" style="width:20%; background:var(--score-low)"></div></div><span class="score-val">2</span></div>
+      <hr class="divider" style="margin:1rem 0;">
+      <div class="two-col">
+        <div class="two-col-item positive">High delivery volumes (1,181 Classic Mess orders)</div>
+        <div class="two-col-item positive">Active TikTok: "Best Burger in Portsmouth"</div>
+        <div class="two-col-item negative">Zero standalone web presence</div>
+        <div class="two-col-item negative">Entirely platform-dependent</div>
+        <div class="two-col-item negative">No brand story or differentiation</div>
+        <div class="two-col-item negative">Generic choiceqr UI — zero identity</div>
+      </div>
+      <div class="tags"><span class="tag">Delivery Heavy</span><span class="tag">No Website</span><span class="tag">Social Proof</span></div>
+    </div>
+
+    <!-- Hub Box -->
+    <div class="card card--neutral">
+      <div class="competitor-header">
+        <div>
+          <h4>Competitor 03 · Established Chain</h4>
+          <h3 style="font-size:1.4rem; margin-bottom:.3rem;">Hub Box Portsmouth</h3>
+          <p style="font-size:.82rem; color: var(--text-muted); margin-bottom:.5rem;">Portsmouth · hubbox.co.uk · Multi-site chain (est. 2003)</p>
+        </div>
+        <div class="competitor-score-badge">36<span>/80</span></div>
+      </div>
+      <div class="score-row"><span class="score-label">Web Presence</span><div class="score-bar-wrap"><div class="score-bar" style="width:50%; background:var(--score-mid)"></div></div><span class="score-val">5</span></div>
+      <div class="score-row"><span class="score-label">Trust Signals</span><div class="score-bar-wrap"><div class="score-bar" style="width:60%; background:var(--score-mid)"></div></div><span class="score-val">6</span></div>
+      <div class="score-row"><span class="score-label">Visual Design</span><div class="score-bar-wrap"><div class="score-bar" style="width:40%; background:var(--score-low)"></div></div><span class="score-val">4</span></div>
+      <div class="score-row"><span class="score-label">Online Ordering</span><div class="score-bar-wrap"><div class="score-bar" style="width:30%; background:var(--score-low)"></div></div><span class="score-val">3</span></div>
+      <hr class="divider" style="margin:1rem 0;">
+      <div class="two-col">
+        <div class="two-col-item positive">Long-established (since 2003)</div>
+        <div class="two-col-item positive">"Award-winning" positioning</div>
+        <div class="two-col-item positive">Craft beer &amp; cocktails = higher spend</div>
+        <div class="two-col-item negative">Dated website design (mid-2010s)</div>
+        <div class="two-col-item negative">No online ordering integration</div>
+        <div class="two-col-item negative">Portsmouth page is a bare location listing</div>
+      </div>
+      <div class="tags"><span class="tag">Established</span><span class="tag">Dated Design</span><span class="tag">No Online Order</span></div>
+    </div>
+
+    <!-- Smashed Burger & Fries -->
+    <div class="card card--warning">
+      <div class="competitor-header">
+        <div>
+          <h4>Competitor 04 · Local Independent</h4>
+          <h3 style="font-size:1.4rem; margin-bottom:.3rem;">Smashed Burger &amp; Fries</h3>
+          <p style="font-size:.82rem; color: var(--text-muted); margin-bottom:.5rem;">Portsmouth · Delivery-only · Portsmouth-Eats platform</p>
+        </div>
+        <div class="competitor-score-badge">19<span>/80</span></div>
+      </div>
+      <div class="score-row"><span class="score-label">Web Presence</span><div class="score-bar-wrap"><div class="score-bar" style="width:10%; background:var(--score-low)"></div></div><span class="score-val">1</span></div>
+      <div class="score-row"><span class="score-label">Brand Identity</span><div class="score-bar-wrap"><div class="score-bar" style="width:20%; background:var(--score-low)"></div></div><span class="score-val">2</span></div>
+      <div class="score-row"><span class="score-label">Online Ordering</span><div class="score-bar-wrap"><div class="score-bar" style="width:60%; background:var(--score-mid)"></div></div><span class="score-val">6</span></div>
+      <hr class="divider" style="margin:1rem 0;">
+      <p style="font-size:.875rem; margin-bottom:.5rem;"><strong>Notable:</strong> Creative loaded fries menu (Truffle Fries £4.95, Cheeseburger Fries £6.95, 180 BPM Hot Loaded Fries) — good product innovation completely invisible online.</p>
+      <div class="two-col">
+        <div class="two-col-item positive">Creative loaded fries differentiation</div>
+        <div class="two-col-item negative">Zero independent web or brand presence</div>
+        <div class="two-col-item negative">No social media discoverability</div>
+        <div class="two-col-item negative">Generic name with no personality</div>
+      </div>
+      <div class="tags"><span class="tag">No Identity</span><span class="tag">Delivery Only</span></div>
+    </div>
+
+    <!-- SoBe Burger -->
+    <div class="card" style="border-left-color: var(--score-mid);">
+      <div class="competitor-header">
+        <div>
+          <h4>Competitor 05 · Incoming National Threat</h4>
+          <h3 style="font-size:1.4rem; margin-bottom:.3rem;">SoBe Burger <em style="font-size:1rem;">(Smashburger brand)</em></h3>
+          <p style="font-size:.82rem; color: var(--text-muted); margin-bottom:.5rem;">Portsmouth (TBC) · Sessions-backed · Opening confirmed Jan 2025</p>
+        </div>
+        <div class="competitor-score-badge" style="color: var(--score-mid);">⚠</div>
+      </div>
+      <p style="font-size:.875rem; margin-bottom:.75rem;">SoBe Burger, backed by food brand platform Sessions, confirmed Portsmouth as part of a 6-location expansion including Edinburgh, Plymouth, and Farnborough. National marketing spend and proven Smashburger brand recognition make this a medium-high threat.</p>
+      <div class="two-col">
+        <div class="two-col-item positive">National brand + marketing budget</div>
+        <div class="two-col-item positive">Sessions platform = proven ops</div>
+        <div class="two-col-item negative">Chain = no local authenticity</div>
+        <div class="two-col-item negative">Predictable, generic brand story</div>
+      </div>
+      <div class="card" style="margin-top:1rem; margin-bottom:0; border-left-color:var(--score-high); background:#f2faf5; padding:1rem 1.25rem;">
+        <p style="font-size:.875rem; margin-bottom:0;"><strong>Lush Bites opportunity:</strong> Establish market presence, narrative, and digital footprint <em>before</em> SoBe arrives. Own "Portsmouth's original smash" before a national chain claims any territory. Local soul is an advantage no chain can replicate.</p>
+      </div>
+      <div class="tags"><span class="tag tag--fire">Incoming Threat</span><span class="tag">National Chain</span></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       02 — COMPETITOR MATRIX
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>Competitor Matrix</h2>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th>Criterion (1–10)</th>
+          <th>7Bone</th>
+          <th>Messy Chef</th>
+          <th>Hub Box</th>
+          <th>Smashed B&amp;F</th>
+          <th>SoBe*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Web Presence</td><td class="score-cell score-mid">4</td><td class="score-cell score-low">1</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">1</td><td class="score-cell score-mid">5</td></tr>
+        <tr><td>Brand Identity</td><td class="score-cell score-mid">6</td><td class="score-cell score-low">3</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">2</td><td class="score-cell score-mid">6</td></tr>
+        <tr><td>Visual Design</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">2</td><td class="score-cell score-low">4</td><td class="score-cell score-low">1</td><td class="score-cell score-mid">6</td></tr>
+        <tr><td>Online Ordering</td><td class="score-cell score-mid">5</td><td class="score-cell score-mid">7</td><td class="score-cell score-low">3</td><td class="score-cell score-mid">6</td><td class="score-cell score-mid">7</td></tr>
+        <tr><td>Social Proof</td><td class="score-cell score-mid">6</td><td class="score-cell score-mid">5</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">2</td><td class="score-cell score-low">4</td></tr>
+        <tr><td>Mobile Experience</td><td class="score-cell score-low">4</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">4</td><td class="score-cell score-low">4</td><td class="score-cell score-mid">6</td></tr>
+        <tr><td>Content &amp; Story</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">2</td><td class="score-cell score-low">4</td><td class="score-cell score-low">1</td><td class="score-cell score-mid">5</td></tr>
+        <tr><td>Trust Signals</td><td class="score-cell score-mid">5</td><td class="score-cell score-low">3</td><td class="score-cell score-mid">6</td><td class="score-cell score-low">2</td><td class="score-cell score-mid">6</td></tr>
+        <tr><td><strong>TOTAL / 80</strong></td><td class="score-cell score-mid"><strong>40</strong></td><td class="score-cell score-low"><strong>28</strong></td><td class="score-cell score-mid"><strong>36</strong></td><td class="score-cell score-low"><strong>19</strong></td><td class="score-cell score-mid"><strong>45*</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.8rem; color:var(--text-muted); margin-bottom: 1.5rem;">* SoBe Burger scored pre-opening based on Sessions platform track record and Smashburger brand standards.</p>
+    <div class="card card--success">
+      <p style="margin-bottom:0;"><strong>Gap analysis:</strong> The local market ceiling is currently <strong>40/80</strong>. A well-executed premium Lush Bites site should score <strong>70–78/80</strong> — effectively 2× the best existing local competitor. The bar is exceptionally low. The opportunity is exceptional.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       03 — INSPIRATION SITE ANALYSIS
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>Inspiration Site Analysis</h2>
+    </div>
+    <p>Four global brands were deeply scraped via Firecrawl — extracting live branding data, section order, UX patterns, and navigation structure. Here is what each one does best and which elements to steal for Lush Bites.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>O'Tacos · o-tacos.com</h4>
+        <h3>Discovery-First Ordering</h3>
+        <div class="swatches" style="margin:.75rem 0 1rem; gap:.75rem;">
+          <div class="swatch" style="background:#FF7200;"></div>
+          <div class="swatch" style="background:#E3DCCE;"></div>
+          <div class="swatch" style="background:#312A25;"></div>
+        </div>
+        <p style="font-size:.875rem;"><strong>Fonts:</strong> Puffin Display Black / Switzer</p>
+        <p style="font-size:.875rem;"><strong>CTA:</strong> "I'm hungry" — nav + mid-page</p>
+        <p style="font-size:.875rem; margin-bottom: .5rem;"><strong>Section order:</strong> Sticky nav → Hero carousel → Horizontal category scroll → Boss-sellers grid → Map/location → Ordering CTA → Boss Club loyalty → Instagram feed → Footer</p>
+        <div class="tags">
+          <span class="tag tag--fire">Horizontal Scroll Menu</span>
+          <span class="tag tag--fire">Loyalty Above Fold</span>
+          <span class="tag tag--fire">Discovery CTAs</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Burger King France · burgerking.fr</h4>
+        <h3>Campaign-Driven Urgency</h3>
+        <div class="swatches" style="margin:.75rem 0 1rem; gap:.75rem;">
+          <div class="swatch" style="background:#D62300;"></div>
+          <div class="swatch" style="background:#F5EBDC;"></div>
+          <div class="swatch" style="background:#502314;"></div>
+        </div>
+        <p style="font-size:.875rem;"><strong>Fonts:</strong> Flame Regular (custom) / Flame Sans</p>
+        <p style="font-size:.875rem;"><strong>CTA:</strong> "Commander" — always in nav</p>
+        <p style="font-size:.875rem; margin-bottom:.5rem;"><strong>Section order:</strong> Sticky nav → Full-screen hero promos → News grid → Service mode cards (drive/table/delivery/collect) → Selected products → App download → Footer</p>
+        <div class="tags">
+          <span class="tag tag--fire">Warm Paper Palette</span>
+          <span class="tag tag--fire">Service Mode Cards</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Five Guys UK · fiveguys.co.uk</h4>
+        <h3>Transparency as Premium</h3>
+        <div class="swatches" style="margin:.75rem 0 1rem; gap:.75rem;">
+          <div class="swatch" style="background:#D21033;"></div>
+          <div class="swatch" style="background:#F6F6F6;"></div>
+          <div class="swatch" style="background:#000;"></div>
+        </div>
+        <p style="font-size:.875rem;"><strong>Font:</strong> Public Sans throughout</p>
+        <p style="font-size:.875rem;"><strong>CTA:</strong> "Order Now" — repeated 4× per page</p>
+        <p style="font-size:.875rem; margin-bottom:.5rem;"><strong>Section order:</strong> Sticky nav → Hero → 8-category food grid → USP stat blocks → Kids Meals → Find A Store → Gift Cards → Delivery partner logos → Ingredient transparency → About Us → Crew → Group order → Merch → Footer</p>
+        <div class="tags">
+          <span class="tag tag--fire">USP Stat Blocks</span>
+          <span class="tag tag--fire">8-Category Grid</span>
+          <span class="tag tag--fire">Delivery Partner Strip</span>
+          <span class="tag tag--fire">Ingredient Transparency</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       04 — UX PATTERN RECOMMENDATIONS
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>UX Pattern Recommendations</h2>
+    </div>
+
+    <div class="ux-pattern">
+      <div class="ux-icon">📌</div>
+      <div class="ux-content">
+        <h4>Pattern 01 — Persistent Order CTA</h4>
+        <p>All three global brands keep their order button visible in the sticky nav at all times. Zero Portsmouth competitors do this. Lush Bites should have a persistent fire-coloured "Order Now" button visible at every scroll position on every page.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">↔️</div>
+      <div class="ux-content">
+        <h4>Pattern 02 — Horizontal Category Scroll</h4>
+        <p>O'Tacos' horizontal pill tab bar (Build your own / Louisiana / Deals / O'Boss…) is the most mobile-friendly menu pattern in fast food. Apply to Lush Bites: Smash Burgers / Chicken / Loaded Fries / Drinks / Desserts — horizontal swipe on mobile, full bar on desktop.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">🔥</div>
+      <div class="ux-content">
+        <h4>Pattern 03 — USP Stat Blocks</h4>
+        <p>Five Guys uses 3 animated stat tooltips as trust signals AND differentiation. For Lush Bites: <strong>"100% British Beef"</strong> · <strong>"Smashed to order — never pre-pressed"</strong> · <strong>"Zero frozen patties, ever"</strong>. These answer the "is it actually good?" question before it's asked.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">🚚</div>
+      <div class="ux-content">
+        <h4>Pattern 04 — Delivery Partner Logo Strip</h4>
+        <p>Five Guys and BK France prominently display Deliveroo, Just Eat, and Uber Eats logos. Not a single Portsmouth competitor does this. A row of 3 delivery logos tells visitors instantly: "you can get this wherever you are." Eliminates the #1 visitor objection without a word of copy.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">📖</div>
+      <div class="ux-content">
+        <h4>Pattern 05 — Origin Story Section</h4>
+        <p>Every premium brand has a homepage story section. None of Portsmouth's burger brands tell any story. The Lush Bites narrative — why the smash, why Portsmouth, why 135 Queen Street — is a competitive weapon no chain can copy. It doesn't need to be long. Just real.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">⭐</div>
+      <div class="ux-content">
+        <h4>Pattern 06 — Embedded Social Proof</h4>
+        <p>O'Tacos embeds Instagram with live like counts (2k–7k per post). Google review quotes embedded above the footer convert well. Show real reviews with names and star ratings — not just an aggregate score. Actual words beat numbers.</p>
+      </div>
+    </div>
+    <div class="ux-pattern">
+      <div class="ux-icon">🗂️</div>
+      <div class="ux-content">
+        <h4>Pattern 07 — Service Mode Visual Selector</h4>
+        <p>Burger King France's three distinct service cards (King Drive / King Table / King Delivery) each with image + CTA immediately answer "how do I get this food?" For Lush Bites: Dine In · Click &amp; Collect · Delivery as three visual cards with the right platform links behind each.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       05 — DESIGN DIRECTION
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <h2>Recommended Design Direction</h2>
+    </div>
+
+    <h3 style="margin-bottom: 1rem;">Colour Palette</h3>
+    <div class="palette-row">
+      <div class="palette-chip" style="background:#1a1a1a; color:#fff;">#1a1a1a<br><small style="font-weight:400; opacity:.7;">Primary</small></div>
+      <div class="palette-chip" style="background:#e84c1e; color:#fff;">#e84c1e<br><small style="font-weight:400; opacity:.8;">Fire Accent</small></div>
+      <div class="palette-chip" style="background:#f5f0e8; color:#1a1a1a;">#f5f0e8<br><small style="font-weight:400; opacity:.7;">Warm Cream</small></div>
+      <div class="palette-chip" style="background:#2d2520; color:#f5f0e8;">#2d2520<br><small style="font-weight:400; opacity:.7;">Burger Brown</small></div>
+      <div class="palette-chip" style="background:#fffefa; color:#1a1a1a; border:1px solid #e8e0d4;">#fffefa<br><small style="font-weight:400; opacity:.7;">Card BG</small></div>
+    </div>
+    <div class="card card--neutral" style="margin-bottom:2rem;">
+      <p style="font-size:.875rem; margin-bottom:0;">The palette is strategically derived from competitor analysis: the warm cream mirrors BK France's food-friendly paper tone (#F5EBDC); the fire accent (#e84c1e) sits between O'Tacos orange (#FF7200) and BK's red (#D62300) — hotter than orange, more primal than red. The near-black grounds everything with premium weight. No local Portsmouth competitor uses anything close to this combination.</p>
+    </div>
+
+    <h3 style="margin-bottom: 1rem;">Typography</h3>
+    <div class="card-grid" style="margin-bottom:2rem;">
+      <div class="card">
+        <h4>Display / Hero</h4>
+        <p style="font-family:'Instrument Serif', serif; font-size:2.1rem; line-height:1.1; margin-bottom:.5rem;">The Lush<br><em>Smash.</em></p>
+        <p style="font-size:.875rem; margin-bottom:0;"><strong>Instrument Serif</strong> (Google Fonts). High-contrast, editorial, immediately premium. The italic adds attitude. Used by world-class food and D2C brands.</p>
+      </div>
+      <div class="card">
+        <h4>Body / UI</h4>
+        <p style="font-family:'DM Sans', sans-serif; font-size:1rem; line-height:1.7; margin-bottom:.5rem;">Clean, modern, deeply legible at every size. Built for digital menus and mobile reading.</p>
+        <p style="font-size:.875rem; margin-bottom:0;"><strong>DM Sans</strong> (Google Fonts). Variable weight 300–700. Pairs beautifully with Instrument Serif. Used by Stripe, Linear, and premium D2C brands.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 1rem;">Animation Direction</h3>
+    <div class="ux-pattern"><div class="ux-icon">✦</div><div class="ux-content"><h4>Scroll-Triggered Reveals</h4><p>Every section fades/translates in on scroll via GSAP + ScrollTrigger. Hero text reveals staggered by word. Product cards cascade in on scroll. Smooth and cinematic — not bouncy or playful. 600–800ms duration, ease-out.</p></div></div>
+    <div class="ux-pattern"><div class="ux-icon">✦</div><div class="ux-content"><h4>Parallax Depth</h4><p>Background food photography moves at 0.6× scroll speed. Foreground product cutouts move at 1.1×. Creates perceived 3D depth without performance overhead. Reference: O'Tacos hero carousel.</p></div></div>
+    <div class="ux-pattern"><div class="ux-icon">✦</div><div class="ux-content"><h4>Micro-interactions</h4><p>Order button scales 1.04× on hover with fire-colour shadow. Menu cards lift 4px. Category tabs get fire underline on active. Nav links have 150ms colour transition. All easing: cubic-bezier(0.4, 0, 0.2, 1).</p></div></div>
+    <div class="ux-pattern"><div class="ux-icon">✦</div><div class="ux-content"><h4>3D Hero Asset</h4><p>Hero section built to receive a full-bleed 3D scroll-triggered burger reveal (produced separately). Placeholder clearly marked in code with exact dimensions. Cinematic quality — this is the stop-scroll moment.</p></div></div>
+
+    <h3 style="margin-bottom: 1rem; margin-top: 2rem;">What to Avoid</h3>
+    <div class="two-col">
+      <div class="two-col-item negative">Bright neon colours — 7Bone territory</div>
+      <div class="two-col-item negative">Bright clinical white backgrounds</div>
+      <div class="two-col-item negative">Comic or handwritten display fonts</div>
+      <div class="two-col-item negative">GIF-heavy or audio-autoplay pages</div>
+      <div class="two-col-item negative">Prices hidden behind extra clicks</div>
+      <div class="two-col-item negative">Third-party platform as the homepage</div>
+      <div class="two-col-item negative">"Kids eat free" value-signalling copy</div>
+      <div class="two-col-item negative">Undifferentiated hero ("Welcome to…")</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       06 — BUILD BRIEF
+  ══════════════════════════════════════════════════════════ -->
+  <section style="margin-bottom: 4rem;">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <h2>Website Build Brief</h2>
+    </div>
+
+    <div class="brief-section">
+      <h4>Lush Bites Portsmouth</h4>
+      <h2 style="margin-bottom:.25rem;">The Build Brief</h2>
+      <p>135 Queen Street · PO1 3HY · Portsmouth's Premium Smash Burger</p>
+
+      <hr class="divider">
+
+      <!-- MENU CATEGORIES (UPDATED) -->
+      <h3>Full Menu Categories</h3>
+      <p>Updated to reflect the complete Lush Bites menu — not burger-only. All 5 categories represented in navigation tabs and homepage showcase.</p>
+      <div class="card-grid" style="margin-bottom:1.5rem;">
+        <div class="card"><h4>Category 01</h4><h3>Burgers</h3><p style="font-size:.875rem; margin-bottom:0;"><strong>Beef Smash:</strong> Devil's Bite, BBQ Bacon Cheeseburger + more<br><strong>Lamb Smash:</strong> Spicy Lamb Smash<br><strong>Chicken:</strong> Classic, BBQ Bacon &amp; Cheddar</p></div>
+        <div class="card"><h4>Category 02</h4><h3>Wings</h3><p style="font-size:.875rem; margin-bottom:0;">Buffalo · Southern Fried · Texan Sticky BBQ · Garlic Parmesan · Mango Habanero<br><small style="color:var(--text-muted);">5pc / 10pc options</small></p></div>
+        <div class="card"><h4>Category 03</h4><h3>Sides</h3><p style="font-size:.875rem; margin-bottom:0;">Cheesy Crinkle Fries · Mac Cheese Bites · Classic Loaded Fries</p></div>
+        <div class="card"><h4>Category 04</h4><h3>Salads</h3><p style="font-size:.875rem; margin-bottom:0;">Lamb Smash Salad · Beef Smash Salad · Chicken Salad · Veggie Salad</p></div>
+        <div class="card"><h4>Category 05</h4><h3>Drinks</h3><p style="font-size:.875rem; margin-bottom:0;"><strong>Milkshakes:</strong> Biscoff, Kinder Bueno<br><strong>Mocktails</strong> — selection TBC</p></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- HOMEPAGE HEADLINES -->
+      <h3>Homepage Headline</h3>
+      <p>Updated to reflect the full Lush Bites experience — not limited to smash burgers. Selected headline leads with attitude and place, letting the menu do the category work.</p>
+      <div class="brief-headline-option">
+        <div class="opt-num">Selected — Full Experience</div>
+        <div class="headline">Proper Food.<br><em>Portsmouth Done Right.</em></div>
+      </div>
+      <div class="brief-headline-option">
+        <div class="opt-num">Alt — The Craft</div>
+        <div class="headline">Smashed Flat. Seared Hard.<br><em>Done Right.</em></div>
+      </div>
+      <div class="brief-headline-option">
+        <div class="opt-num">Alt — Identity Claim</div>
+        <div class="headline">Portsmouth's Best Smash Burger<br><em>Isn't a Chain.</em></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SITE ARCHITECTURE -->
+      <h3>Site Architecture</h3>
+      <div class="card-grid" style="margin-bottom:0;">
+        <div class="card"><h4>Page 01</h4><h3>Home</h3><p style="font-size:.875rem; margin-bottom:.4rem;">Hero → Trust strip → All 5 category showcase → USP stats → Order modes → Story → Reviews → Find us</p><div class="tags"><span class="tag tag--fire">Primary</span></div></div>
+        <div class="card"><h4>Page 02</h4><h3>Menu</h3><p style="font-size:.875rem; margin-bottom:.4rem;">Category tabs: Burgers / Wings / Sides / Salads / Drinks → Product grid with price + ingredients → Order CTA</p><div class="tags"><span class="tag tag--fire">High Priority</span></div></div>
+        <div class="card"><h4>Page 03</h4><h3>Our Story</h3><p style="font-size:.875rem; margin-bottom:.4rem;">Origin story · The smash technique · Ingredient sourcing · Team · 135 Queen Street</p><div class="tags"><span class="tag">Trust Builder</span></div></div>
+        <div class="card"><h4>Page 04</h4><h3>Order</h3><p style="font-size:.875rem; margin-bottom:.4rem;">Service selector → Dine In / Collect / Delivery with platform links</p><div class="tags"><span class="tag tag--fire">Conversion</span></div></div>
+        <div class="card"><h4>Page 05</h4><h3>Find Us</h3><p style="font-size:.875rem; margin-bottom:.4rem;">Map embed · 135 Queen Street PO1 3HY · Opening hours · Get directions</p><div class="tags"><span class="tag">Footfall</span></div></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- HOMEPAGE SECTION ORDER -->
+      <h3>Homepage Section Order</h3>
+      <div class="brief-ux-step"><div class="step-num">1</div><div class="step-content"><h4>Sticky Nav</h4><p>Logo left · Menu · Story · Order · "Order Now" fire button always visible top-right</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">2</div><div class="step-content"><h4>Hero — Full Screen</h4><p>3D scroll asset placeholder · Headline (Instrument Serif, large) · "Order Now" + "See Menu" CTAs · Scroll indicator</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">3</div><div class="step-content"><h4>Trust Strip</h4><p>Google ★★★★★ rating · Deliveroo + Just Eat + Uber Eats logos · "Ready in 10 mins"</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">4</div><div class="step-content"><h4>Menu Showcase — All 5 Categories</h4><p>Horizontal category tabs: Burgers / Wings / Sides / Salads / Drinks → 3 featured items per active tab → "Full Menu" CTA. Active tab defaults to Burgers on load.</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">5</div><div class="step-content"><h4>USP Stats</h4><p>3 blocks: "100% British Beef" · "Smashed to Order — never pre-pressed" · "Zero Frozen Patties, Ever"</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">6</div><div class="step-content"><h4>Order Modes</h4><p>3 visual cards: Dine In · Click &amp; Collect · Delivery — each with platform logos and CTA button</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">7</div><div class="step-content"><h4>Our Story</h4><p>Split section: copy left, food photo right. Origin narrative, the smash technique, why Portsmouth. "Learn More" → /story</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">8</div><div class="step-content"><h4>Google Reviews</h4><p>3–4 review cards with star rating, reviewer name, review text. Aggregate rating badge. No fake reviews.</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">9</div><div class="step-content"><h4>Find Us</h4><p>Map embed · 135 Queen Street PO1 3HY · Opening hours · "Get directions" → Google Maps</p></div></div>
+      <div class="flow-connector" style="color: var(--brand-fire);">↓</div>
+      <div class="brief-ux-step"><div class="step-num">10</div><div class="step-content"><h4>Footer</h4><p>Logo · Nav links · Instagram/TikTok/Facebook · Email · Hours · Legal</p></div></div>
+
+      <hr class="divider">
+
+      <!-- CONVERSION PLAYBOOK -->
+      <h3>Conversion Playbook</h3>
+      <div class="card-grid" style="margin-bottom:0;">
+        <div class="card"><h4>Primary Goal</h4><h3>Click to Order</h3><p style="font-size:.875rem; margin-bottom:0;">Minimum 4 order CTAs per page. Sticky nav makes it impossible to miss. Every page ends in a CTA.</p></div>
+        <div class="card"><h4>Secondary Goal</h4><h3>Drive Footfall</h3><p style="font-size:.875rem; margin-bottom:0;">Map and hours on Find Us page. "Get directions" CTA → Google Maps. Hours in footer on every page.</p></div>
+        <div class="card"><h4>Retention Play</h4><h3>Social Follow</h3><p style="font-size:.875rem; margin-bottom:0;">Instagram/TikTok CTAs in hero and story sections. Target 500 followers in first 90 days post-launch.</p></div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- SEO KEYWORDS -->
+      <h3>SEO Keyword Targets</h3>
+      <p>Based on competitor ranking gap analysis and Portsmouth search volume research. Primary targets are currently uncontested by any local brand with a premium site.</p>
+      <div class="tags">
+        <span class="tag tag--fire">smash burger Portsmouth</span>
+        <span class="tag tag--fire">best burger Portsmouth</span>
+        <span class="tag tag--fire">smash burger Queen Street</span>
+        <span class="tag">burger takeaway Portsmouth</span>
+        <span class="tag">burger delivery Portsmouth</span>
+        <span class="tag">chicken wings Portsmouth</span>
+        <span class="tag">lamb smash burger Portsmouth</span>
+        <span class="tag">loaded fries Portsmouth</span>
+        <span class="tag">halal burger Portsmouth</span>
+        <span class="tag">best burger Southsea</span>
+        <span class="tag">milkshakes Portsmouth</span>
+        <span class="tag">food delivery Queen Street Portsmouth</span>
+      </div>
+      <div class="card" style="margin-top:1rem; margin-bottom:0;">
+        <p style="font-size:.875rem; margin-bottom:0;"><strong>Schema markup required:</strong> <code>Restaurant</code> + <code>Menu</code> + <code>LocalBusiness</code> + <code>Review</code>. Google Business Profile must have matching NAP (Name/Address/Phone). Target: top-3 ranking for "smash burger Portsmouth" within 90 days of launch with consistent content.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════ -->
+  <footer class="report-footer">
+    <div class="report-footer-brand">
+      Lush Bites Portsmouth<br>
+      <span style="font-family:'DM Sans',sans-serif; font-size:.82rem; font-style:normal; color:var(--text-muted);">135 Queen Street · Portsmouth PO1 3HY</span>
+    </div>
+    <div class="report-footer-meta">
+      Competitive Analysis Report<br>
+      Generated: 31 March 2026<br>
+      Research via Firecrawl · Google · TripAdvisor · Reddit r/Portsmouth
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
