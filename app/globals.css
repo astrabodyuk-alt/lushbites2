@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-dark text-cream font-body antialiased;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-fire text-white;
+  }
+
+  /* Hide scrollbar for category nav */
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@layer utilities {
+  .container-lush {
+    @apply max-w-[1200px] mx-auto px-5;
+  }
+
+  .section-label {
+    @apply text-xs font-bold tracking-widest uppercase text-fire;
+  }
+
+  .section-title {
+    @apply font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight text-cream;
+  }
+
+  .section-body {
+    @apply text-[1.0625rem] text-muted max-w-prose leading-relaxed;
+  }
+
+  .text-fire-italic {
+    @apply italic text-fire;
+  }
+}
+
+/* ── Button helpers ─────────────────────────────────── */
+.btn-fire {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold bg-fire text-white
+    hover:bg-fire-dark hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-fire
+    transition-all duration-200 cursor-pointer select-none;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold
+    border border-cream/30 text-cream
+    hover:bg-cream/10 hover:-translate-y-0.5
+    transition-all duration-200 cursor-pointer;
+}
+.btn-cream {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold
+    bg-cream text-brown
+    hover:bg-white hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-md
+    transition-all duration-200 cursor-pointer;
+}
+.btn-lg {
+  @apply px-9 py-4 text-base;
+}
+.btn-sm {
+  @apply px-5 py-2 text-xs;
+}
+
+/* Hero video */
+#hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Nav link underline animation */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 2px;
+  background: #e84c1e;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* Scroll pulse indicator */
+.scroll-indicator span {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: white;
+  animation: scrollPulse 1.6s ease-in-out infinite;
+}
