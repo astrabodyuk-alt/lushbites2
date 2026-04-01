@@ -83,8 +83,8 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────── */}
-      <section className="relative min-h-screen bg-dark flex items-center overflow-hidden" aria-label="Hero">
-        {/* Mobile: background video */}
+      <section className="relative min-h-screen flex items-center overflow-hidden" aria-label="Hero">
+        {/* Background video */}
         <video
           id="hero-video"
           autoPlay
@@ -93,60 +93,38 @@ export default function HomePage() {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="md:hidden"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src={heroVideoUrl} type="video/mp4" />
         </video>
 
-        {/* Mobile overlay */}
+        {/* Dark overlay */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-[1] md:hidden"
+          className="absolute inset-0 z-[1] bg-black/50"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(26,26,26,.55) 0%, rgba(26,26,26,.82) 60%, #1a1a1a 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,.55) 50%, #1a1a1a 100%)",
           }}
         />
 
-        <div className="container-lush relative z-[2] pt-[72px] pb-16 w-full">
-          <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-            {/* Left: Text */}
-            <div className="flex-1 max-w-2xl">
-              <p className="text-sm font-medium tracking-[0.15em] uppercase text-fire mb-4 animate-fade-up">
-                135 Queen Street · Portsmouth
-              </p>
-              <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none text-cream mb-6">
-                <span className="block animate-fade-up" style={{ animationDelay: "0.12s" }}>Proper Food.</span>
-                <span className="block italic text-fire animate-fade-up" style={{ animationDelay: "0.24s" }}>Portsmouth</span>
-                <span className="block animate-fade-up" style={{ animationDelay: "0.36s" }}>Done Right.</span>
-              </h1>
-              <p className="text-lg text-cream/80 mb-8 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-                Smash burgers · Crispy wings · Loaded fries &amp; more.
-              </p>
-              <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-                <Link href="/order" className="btn-fire btn-lg">Order Now</Link>
-                <Link href="/menu"  className="btn-ghost btn-lg">See Menu</Link>
-              </div>
-            </div>
-
-            {/* Right: Video (desktop only) */}
-            <div className="hidden md:block flex-1 relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3]">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover"
-                >
-                  <source src={heroVideoUrl} type="video/mp4" />
-                </video>
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "linear-gradient(135deg, rgba(26,26,26,.2) 0%, transparent 60%)" }}
-                />
-              </div>
+        {/* Text content */}
+        <div className="container-lush relative z-[2] pt-[72px]">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium tracking-[0.15em] uppercase text-fire mb-4 animate-fade-up">
+              135 Queen Street · Portsmouth
+            </p>
+            <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none text-cream mb-6">
+              <span className="block animate-fade-up" style={{ animationDelay: "0.12s" }}>Proper Food.</span>
+              <span className="block italic text-fire animate-fade-up" style={{ animationDelay: "0.24s" }}>Portsmouth</span>
+              <span className="block animate-fade-up" style={{ animationDelay: "0.36s" }}>Done Right.</span>
+            </h1>
+            <p className="text-lg text-cream/80 mb-8 animate-fade-up" style={{ animationDelay: "0.5s" }}>
+              Smash burgers · Crispy wings · Loaded fries &amp; more.
+            </p>
+            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
+              <Link href="/order" className="btn-fire btn-lg">Order Now</Link>
+              <Link href="/menu"  className="btn-ghost btn-lg">See Menu</Link>
             </div>
           </div>
         </div>
