@@ -12,24 +12,24 @@ const heroVideoUrl =
 const reviews = [
   {
     stars: 5,
-    text: "Best smash burger I've had outside of London. The Devil's Bite is absolutely unreal. Queued 20 minutes and it was worth every second.",
-    name: "Jamie T.",
+    text: "The smash burgers here are absolutely incredible. Perfectly seasoned patties, toasted buns, and the sauce is next level. Best burger in Portsmouth by a mile!",
+    name: "James T.",
     source: "Google",
     initials: "JT",
   },
   {
     stars: 5,
-    text: "Fresh, hot, and massive. The lamb smash is different — proper spicing, soft bun, not a soggy mess. Finally a halal option that doesn't compromise.",
-    name: "Amara S.",
+    text: "Went in for a quick bite and left completely blown away. The smash burger was juicy, crispy, and just perfect. Already planning my next visit!",
+    name: "Sarah M.",
     source: "Google",
-    initials: "AS",
+    initials: "SM",
   },
   {
     stars: 5,
-    text: "The cheesy crinkle fries alone are worth the trip. Added the mango habanero wings and I was in heaven. 10/10 would recommend to anyone in Portsmouth.",
-    name: "Ryan K.",
+    text: "Hands down the best smash burgers I've ever had. The meat quality is unreal — you can tell it's proper British beef. The loaded fries are insane too.",
+    name: "Mike R.",
     source: "Google",
-    initials: "RK",
+    initials: "MR",
   },
 ];
 
@@ -42,31 +42,30 @@ const showcaseCards = [
 ];
 
 const stats = [
-  { value: 135, suffix: "", label: "Queen Street" },
-  { value: 4.8, suffix: "★", label: "Average Rating" },
-  { value: 30,  suffix: "min", label: "Avg. Order Time" },
-  { value: 100, suffix: "%", label: "Fresh Daily" },
+  { value: 5, suffix: "★", label: "Rating" },
+  { value: 2000, suffix: "+", label: "Happy Customers" },
+  { value: 100, suffix: "%", label: "British Beef" },
 ];
 
 const orderModes = [
   {
-    icon: "🪑",
+    icon: "🍽️",
     title: "Dine In",
     desc: "Eat with us at 135 Queen Street. No booking needed — just turn up, sit down, and enjoy.",
-    cta: { label: "Find Us", href: "/find-us" },
+    cta: { label: "Find Us", href: "/order" },
   },
   {
     icon: "📦",
     title: "Click & Collect",
     desc: "Order ahead online, skip the queue. We'll have it ready in 20–25 minutes.",
-    cta: { label: "Order Now", href: "/order" },
+    cta: { label: "Order Now", href: "https://lushbites.co.uk" },
     featured: true,
   },
   {
     icon: "🛵",
     title: "Delivery",
-    desc: "We deliver across Portsmouth via Deliveroo, Just Eat & Uber Eats.",
-    cta: { label: "Order Delivery", href: "/order" },
+    desc: "We deliver across Portsmouth via Deliveroo. Hot food, straight to your door.",
+    cta: { label: "Order Delivery", href: "https://deliveroo.co.uk" },
   },
 ];
 
@@ -84,7 +83,8 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────── */}
-      <section className="relative h-screen min-h-[640px] flex items-center" aria-label="Hero">
+      <section className="relative min-h-screen bg-dark flex items-center overflow-hidden" aria-label="Hero">
+        {/* Mobile: background video */}
         <video
           id="hero-video"
           autoPlay
@@ -93,36 +93,60 @@ export default function HomePage() {
           playsInline
           preload="auto"
           aria-hidden="true"
+          className="md:hidden"
         >
           <source src={heroVideoUrl} type="video/mp4" />
         </video>
 
-        {/* Overlay */}
+        {/* Mobile overlay */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-[1]"
+          className="absolute inset-0 z-[1] md:hidden"
           style={{
             background:
               "linear-gradient(to bottom, rgba(26,26,26,.55) 0%, rgba(26,26,26,.82) 60%, #1a1a1a 100%)",
           }}
         />
 
-        <div className="container-lush relative z-[2] pt-[72px]">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium tracking-[0.15em] uppercase text-fire mb-4 animate-fade-up">
-              135 Queen Street · Portsmouth
-            </p>
-            <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none text-cream mb-6">
-              <span className="block animate-fade-up" style={{ animationDelay: "0.12s" }}>Proper Food.</span>
-              <span className="block italic text-fire animate-fade-up" style={{ animationDelay: "0.24s" }}>Portsmouth</span>
-              <span className="block animate-fade-up" style={{ animationDelay: "0.36s" }}>Done Right.</span>
-            </h1>
-            <p className="text-lg text-cream/80 mb-8 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-              Smash burgers · Crispy wings · Loaded fries &amp; more.
-            </p>
-            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-              <Link href="/order" className="btn-fire btn-lg">Order Now</Link>
-              <Link href="/menu"  className="btn-ghost btn-lg">See Menu</Link>
+        <div className="container-lush relative z-[2] pt-[72px] pb-16 w-full">
+          <div className="flex flex-col md:flex-row md:items-center md:gap-12">
+            {/* Left: Text */}
+            <div className="flex-1 max-w-2xl">
+              <p className="text-sm font-medium tracking-[0.15em] uppercase text-fire mb-4 animate-fade-up">
+                135 Queen Street · Portsmouth
+              </p>
+              <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none text-cream mb-6">
+                <span className="block animate-fade-up" style={{ animationDelay: "0.12s" }}>Proper Food.</span>
+                <span className="block italic text-fire animate-fade-up" style={{ animationDelay: "0.24s" }}>Portsmouth</span>
+                <span className="block animate-fade-up" style={{ animationDelay: "0.36s" }}>Done Right.</span>
+              </h1>
+              <p className="text-lg text-cream/80 mb-8 animate-fade-up" style={{ animationDelay: "0.5s" }}>
+                Smash burgers · Crispy wings · Loaded fries &amp; more.
+              </p>
+              <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
+                <Link href="/order" className="btn-fire btn-lg">Order Now</Link>
+                <Link href="/menu"  className="btn-ghost btn-lg">See Menu</Link>
+              </div>
+            </div>
+
+            {/* Right: Video (desktop only) */}
+            <div className="hidden md:block flex-1 relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3]">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover"
+                >
+                  <source src={heroVideoUrl} type="video/mp4" />
+                </video>
+                <div
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(135deg, rgba(26,26,26,.2) 0%, transparent 60%)" }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -135,6 +159,17 @@ export default function HomePage() {
 
       {/* ── TRUST STRIP ───────────────────────────────────── */}
       <TrustStrip />
+
+      {/* ── USP STATS ─────────────────────────────────────── */}
+      <div className="py-16 bg-dark border-y border-white/10">
+        <div className="container-lush">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stats.map((s) => (
+              <StatsCounter key={s.label} {...s} />
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* ── MENU SHOWCASE ─────────────────────────────────── */}
       <AnimatedSection className="py-20 bg-dark">
@@ -163,16 +198,7 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      {/* ── USP STATS ─────────────────────────────────────── */}
-      <div className="py-16 bg-brown border-y border-white/10">
-        <div className="container-lush">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((s) => (
-              <StatsCounter key={s.label} {...s} />
-            ))}
-          </div>
-        </div>
-      </div>
+
 
       {/* ── ORDER MODES ───────────────────────────────────── */}
       <AnimatedSection className="py-20 bg-dark">
@@ -249,18 +275,18 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      {/* ── REVIEWS ───────────────────────────────────────── */}
-      <AnimatedSection className="py-20 bg-brown">
+      {/* ── GOOGLE REVIEWS ─────────────────────────────────── */}
+      <AnimatedSection className="py-20" style={{ backgroundColor: "#222222" }}>
         <div className="container-lush">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
               <p className="section-label mb-3">What people say</p>
               <h2 className="section-title">
-                Portsmouth <em className="text-fire-italic">loves it</em>
+                Google <em className="text-fire-italic">Reviews</em>
               </h2>
             </div>
             <div className="flex items-center gap-3 bg-fire/10 border border-fire/30 rounded-xl px-6 py-4">
-              <span className="font-display text-4xl text-cream">4.8</span>
+              <span className="font-display text-4xl text-cream">5.0</span>
               <div>
                 <p className="text-fire text-lg leading-none mb-1">★★★★★</p>
                 <p className="text-xs text-muted">Google Reviews</p>
@@ -269,7 +295,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {reviews.map((r) => (
-              <div key={r.name} className="bg-dark rounded-lg border border-white/10 p-6">
+              <div key={r.name} className="bg-dark rounded-lg border border-white/10 p-6 hover:-translate-y-1 transition-transform duration-200">
                 <p className="text-fire tracking-wider mb-3">{"★".repeat(r.stars)}</p>
                 <p className="text-[0.9375rem] text-muted italic leading-relaxed mb-5">&ldquo;{r.text}&rdquo;</p>
                 <div className="flex items-center gap-3">

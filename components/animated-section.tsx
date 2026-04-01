@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 type Props = {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 };
 
-export function AnimatedSection({ children, className }: Props) {
+export function AnimatedSection({ children, className, style }: Props) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -26,6 +27,7 @@ export function AnimatedSection({ children, className }: Props) {
   return (
     <section
       ref={ref}
+      style={style}
       className={cn(
         "transition-all duration-700",
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
