@@ -3,22 +3,22 @@
 import { Marquee } from "@/components/ui/marquee";
 
 const items = [
-  { icon: "📍", text: "135 Queen Street, Portsmouth" },
-  { icon: "🥩", text: "100% British Beef" },
-  { icon: "❄️", text: "Never Frozen" },
-  { icon: "✅", text: "Halal Certified" },
+  "135 Queen Street, Portsmouth",
+  "100% British Beef",
+  "Never Frozen",
+  "Halal Certified",
 ];
 
 export function TrustStrip() {
   return (
-    <div className="w-full bg-[#f5f0e8] border-y border-[#1a1a1a]/10">
+    <div className="w-full bg-[#1a1a1a] border-y border-[#f5f0e8]/10">
       <Marquee duration={35} pauseOnHover={false} fade={true} fadeAmount={8}>
         {items.map((item, i) => (
           <span
             key={i}
-            className="mx-10 text-sm font-semibold tracking-wide text-[#1a1a1a] whitespace-nowrap"
+            className="mx-10 text-sm font-semibold tracking-wide text-[#f5f0e8]/60 whitespace-nowrap"
           >
-            {item.icon} {item.text}
+            {item}{i < items.length - 1 ? " ·" : ""}
           </span>
         ))}
       </Marquee>
