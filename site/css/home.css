@@ -110,62 +110,46 @@
 }
 
 /* ══ §1 TRUST STRIP ══════════════════════════════════════════ */
-.trust-strip {
-  background: var(--c-dark);
-  border-top:    1px solid rgba(245,240,232,.07);
-  border-bottom: 1px solid rgba(245,240,232,.07);
-  padding-block: 0;
-  overflow: hidden;
-  position: relative;
+@keyframes trust-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* Subtle left/right fade edges */
-.trust-strip::before,
-.trust-strip::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  z-index: 2;
-  pointer-events: none;
+.trust-strip {
+  background: #f5f0e8;
+  border-top:    1px solid rgba(26,26,26,.08);
+  border-bottom: 1px solid rgba(26,26,26,.08);
+  overflow: hidden;
+  position: relative;
+  /* Fade edges via mask */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
-.trust-strip::before { left:  0; background: linear-gradient(to right,  var(--c-dark), transparent); }
-.trust-strip::after  { right: 0; background: linear-gradient(to left,   var(--c-dark), transparent); }
 
 .trust-strip__track {
   display: flex;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3rem);
-  padding: 1rem clamp(1.5rem, 5vw, 4rem);
-  overflow-x: auto;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  /* On wide viewports, centre the pills */
-  justify-content: center;
+  padding-block: .875rem;
+  width: max-content;
   flex-wrap: nowrap;
+  animation: trust-marquee 35s linear infinite;
 }
-.trust-strip__track::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-strip__track { animation: none; }
+}
 
 .trust-pill {
   display: inline-flex;
   align-items: center;
-  gap: .625rem;
+  gap: .5rem;
   flex-shrink: 0;
   white-space: nowrap;
-}
-
-.trust-pill__icon {
-  width: 20px;
-  height: 20px;
-  color: var(--c-fire);
-  flex-shrink: 0;
-}
-
-.trust-pill__text {
   font-size: .875rem;
   font-weight: 600;
   letter-spacing: .02em;
-  color: var(--c-cream);
+  color: #1a1a1a;
 }
 
 .trust-strip__dot {
@@ -173,14 +157,8 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(245,240,232,.25);
+  background: rgba(26,26,26,.25);
   flex-shrink: 0;
-}
-
-/* Hide duplicate pills on desktop (they exist for mobile marquee feel) */
-@media (min-width: 900px) {
-  .trust-pill--dupe,
-  .trust-strip__dot--spacer { display: none; }
 }
 
 /* ══ §2 MENU SHOWCASE ════════════════════════════════════════ */

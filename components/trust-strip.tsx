@@ -1,38 +1,27 @@
-const pills = [
+"use client";
+
+import { Marquee } from "@/components/ui/marquee";
+
+const items = [
   { icon: "📍", text: "135 Queen Street, Portsmouth" },
   { icon: "🥩", text: "100% British Beef" },
-  { icon: "❄️",  text: "Never Frozen" },
+  { icon: "❄️", text: "Never Frozen" },
   { icon: "✅", text: "Halal Certified" },
 ];
 
 export function TrustStrip() {
-  // Duplicate pills for seamless marquee on mobile
-  const allPills = [...pills, ...pills];
-
   return (
-    <div className="bg-cream text-brown border-y border-brown/20 py-3 overflow-hidden">
-      {/* Desktop: centered grid */}
-      <div className="hidden md:flex container-lush items-center justify-center gap-8">
-        {pills.map(({ icon, text }, i) => (
-          <div key={i} className="flex items-center gap-2 whitespace-nowrap">
-            <span>{icon}</span>
-            <span className="text-sm font-semibold">{text}</span>
-          </div>
+    <div className="w-full bg-[#f5f0e8] border-y border-[#1a1a1a]/10">
+      <Marquee duration={35} pauseOnHover={false} fade={true} fadeAmount={8}>
+        {items.map((item, i) => (
+          <span
+            key={i}
+            className="mx-10 text-sm font-semibold tracking-wide text-[#1a1a1a] whitespace-nowrap"
+          >
+            {item.icon} {item.text}
+          </span>
         ))}
-      </div>
-
-      {/* Mobile: marquee */}
-      <div className="md:hidden flex items-center animate-marquee whitespace-nowrap gap-8 w-max">
-        {allPills.map(({ icon, text }, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <span>{icon}</span>
-            <span className="text-sm font-semibold">{text}</span>
-            {i < allPills.length - 1 && (
-              <span className="w-1 h-1 rounded-full bg-brown/30 ml-4" />
-            )}
-          </div>
-        ))}
-      </div>
+      </Marquee>
     </div>
   );
 }
