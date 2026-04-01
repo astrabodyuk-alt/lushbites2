@@ -77,7 +77,7 @@ export function WelcomePopup() {
         {/* Image */}
         <div className="relative h-48 bg-gradient-to-br from-brown to-dark overflow-hidden">
           <Image
-            src="https://res.cloudinary.com/dmjrtcds3/image/upload/v1774999477/burger-assembled_wlktux.png"
+            src="/burger-assembled.jpg"
             alt="Lush Bites smash burger"
             fill
             className="object-cover"
