@@ -70,12 +70,14 @@ export function Nav() {
           </ul>
 
           {/* Desktop CTA */}
-          <Link
-            href="/order"
-            className="hidden md:inline-flex btn-fire text-sm font-semibold"
-          >
-            Order Now
-          </Link>
+          <div className="hidden md:block">
+            <Link
+              href="/order"
+              className="btn-fire text-sm font-semibold"
+            >
+              Order Now
+            </Link>
+          </div>
 
           {/* Hamburger */}
           <button
