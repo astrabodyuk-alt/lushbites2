@@ -8,6 +8,7 @@ import { StatsCounter } from "@/components/stats-counter";
 import { HeroCta } from "@/components/hero-cta";
 import { MenuMarquee } from "@/components/menu-marquee";
 import { MenuCards } from "@/components/menu-card";
+import { OrderModes } from "@/components/order-modes";
 
 
 const reviews = [
@@ -41,27 +42,6 @@ const stats = [
   { value: 100, suffix: "%", label: "British Beef" },
 ];
 
-const orderModes = [
-  {
-    icon: "🍽️",
-    title: "Dine In",
-    desc: "Eat with us at 135 Queen Street. No booking needed — just turn up, sit down, and enjoy.",
-    cta: { label: "Find Us", href: "/order" },
-  },
-  {
-    icon: "📦",
-    title: "Click & Collect",
-    desc: "Order ahead online, skip the queue. We'll have it ready in 20–25 minutes.",
-    cta: { label: "Order Now", href: "https://lushbites.co.uk" },
-    featured: true,
-  },
-  {
-    icon: "🛵",
-    title: "Delivery",
-    desc: "We deliver across Portsmouth via Deliveroo. Hot food, straight to your door.",
-    cta: { label: "Order Delivery", href: "https://deliveroo.co.uk" },
-  },
-];
 
 const mapsEmbedUrl =
   "https://maps.google.com/maps?q=135+Queen+Street,+Portsmouth,+PO1+3HY,+UK&hl=en&z=16&output=embed";
@@ -96,41 +76,11 @@ export default function HomePage() {
       {/* ── MENU SHOWCASE ─────────────────────────────────── */}
       <MenuCards />
 
-
-
       {/* ── ORDER MODES ───────────────────────────────────── */}
-      <AnimatedSection className="py-20 bg-dark">
-        <div className="container-lush">
-          <p className="section-label mb-3">How to eat</p>
-          <h2 className="section-title mb-12">
-            Your way. <em className="text-fire-italic">Your choice.</em>
-          </h2>
+      <OrderModes />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {orderModes.map(({ icon, title, desc, cta, featured }) => (
-              <div
-                key={title}
-                className={`
-                  bg-brown rounded-xl p-7 flex flex-col gap-4 border transition-all duration-200
-                  hover:-translate-y-1 hover:shadow-lg
-                  ${featured ? "border-fire/40 ring-1 ring-fire/20" : "border-white/10"}
-                `}
-              >
-                <div className="w-14 h-14 rounded-md bg-fire/10 flex items-center justify-center text-3xl">
-                  {icon}
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl text-cream mb-2">{title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{desc}</p>
-                </div>
-                <Link href={cta.href} className={featured ? "btn-fire mt-auto" : "btn-ghost mt-auto"}>
-                  {cta.label}
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
+
+
 
       {/* ── FEATURED MENU ITEMS ───────────────────────────── */}
       <AnimatedSection className="py-20 bg-brown">
