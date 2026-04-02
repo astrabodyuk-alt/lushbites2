@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { menuSections } from "@/lib/menu-data";
 import { ProductCard } from "@/components/product-card";
-import { TrustStrip } from "@/components/trust-strip";
+
 import { AnimatedSection } from "@/components/animated-section";
 import { StatsCounter } from "@/components/stats-counter";
 import { HeroCta } from "@/components/hero-cta";
@@ -84,8 +84,7 @@ export default function HomePage() {
       {/* ── HERO ──────────────────────────────────────────── */}
       <HeroCta />
 
-      {/* ── TRUST STRIP ───────────────────────────────────── */}
-      <TrustStrip />
+
 
       {/* ── USP STATS ─────────────────────────────────────── */}
       <div className="py-16 bg-dark border-y border-white/10">
