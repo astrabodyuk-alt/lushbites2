@@ -5,9 +5,8 @@ import { ProductCard } from "@/components/product-card";
 import { TrustStrip } from "@/components/trust-strip";
 import { AnimatedSection } from "@/components/animated-section";
 import { StatsCounter } from "@/components/stats-counter";
+import { HeroCta } from "@/components/hero-cta";
 
-const heroVideoUrl =
-  "https://res.cloudinary.com/dmjrtcds3/video/upload/v1774995093/hero-smash-burger_ilkazr.mp4";
 
 const reviews = [
   {
@@ -83,57 +82,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ──────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden" aria-label="Hero">
-        {/* Background video */}
-        <video
-          id="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src={heroVideoUrl} type="video/mp4" />
-        </video>
-
-        {/* Dark overlay */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-[1] bg-black/50"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,.55) 50%, #1a1a1a 100%)",
-          }}
-        />
-
-        {/* Text content */}
-        <div className="container-lush relative z-[2] pt-[72px]">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium tracking-[0.15em] uppercase text-fire mb-4 animate-fade-up">
-              135 Queen Street · Portsmouth
-            </p>
-            <h1 className="font-display text-[clamp(3rem,8vw,6rem)] leading-none text-cream mb-6">
-              <span className="block animate-fade-up" style={{ animationDelay: "0.12s" }}>Proper Food.</span>
-              <span className="block italic text-fire animate-fade-up" style={{ animationDelay: "0.24s" }}>Portsmouth</span>
-              <span className="block animate-fade-up" style={{ animationDelay: "0.36s" }}>Done Right.</span>
-            </h1>
-            <p className="text-lg text-cream/80 mb-8 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-              Smash burgers · Crispy wings · Loaded fries &amp; more.
-            </p>
-            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-              <Link href="/order" className="btn-fire btn-lg">Order Now</Link>
-              <Link href="/menu"  className="btn-ghost btn-lg">See Menu</Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[2]" aria-hidden="true">
-          <span />
-        </div>
-      </section>
+      <HeroCta />
 
       {/* ── TRUST STRIP ───────────────────────────────────── */}
       <TrustStrip />

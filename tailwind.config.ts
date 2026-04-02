@@ -54,6 +54,14 @@ const config: Config = {
           "0%":   { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        marqueeH: {
+          "0%":   { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        fadeInUp: {
+          "0%":   { opacity: "0", transform: "translateY(30px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         popIn: {
           "0%":   { opacity: "0", transform: "scale(0.88)" },
           "100%": { opacity: "1", transform: "scale(1)" },
@@ -66,6 +74,8 @@ const config: Config = {
       animation: {
         "fade-up":      "fadeUp 0.7s ease both",
         marquee:        "marquee 22s linear infinite",
+        "marquee-h":    "marqueeH var(--duration, 40s) linear infinite",
+        "hero-up":      "fadeInUp 0.8s ease both",
         "pop-in":       "popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both",
         "scroll-pulse": "scrollPulse 1.6s ease-in-out infinite",
       },
