@@ -7,6 +7,7 @@ import { AnimatedSection } from "@/components/animated-section";
 import { StatsCounter } from "@/components/stats-counter";
 import { HeroCta } from "@/components/hero-cta";
 import { MenuMarquee } from "@/components/menu-marquee";
+import { MenuCards } from "@/components/menu-card";
 
 
 const reviews = [
@@ -33,13 +34,6 @@ const reviews = [
   },
 ];
 
-const showcaseCards = [
-  { label: "Burgers", emoji: "🍔", href: "/menu#beef-burgers", span: true },
-  { label: "Wings",   emoji: "🍗", href: "/menu#wings" },
-  { label: "Fries",   emoji: "🍟", href: "/menu#sides" },
-  { label: "Salads",  emoji: "🥗", href: "/menu#salads" },
-  { label: "Drinks",  emoji: "🥤", href: "/menu" },
-];
 
 const stats = [
   { value: 5, suffix: "★", label: "Rating" },
@@ -100,31 +94,7 @@ export default function HomePage() {
       </div>
 
       {/* ── MENU SHOWCASE ─────────────────────────────────── */}
-      <AnimatedSection className="py-20 bg-dark">
-        <div className="container-lush">
-          <p className="section-label mb-3">What we do</p>
-          <h2 className="section-title mb-12">
-            Everything on <em className="text-fire-italic">the menu</em>
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {showcaseCards.map(({ label, emoji, href, span }) => (
-              <Link
-                key={label}
-                href={href}
-                className={`
-                  group bg-brown border border-white/10 rounded-lg p-6 flex flex-col items-center justify-center gap-3
-                  hover:-translate-y-1 hover:border-fire/40 hover:shadow-fire/20 hover:shadow-lg transition-all duration-200
-                  ${span ? "col-span-2 md:col-span-2" : ""}
-                `}
-              >
-                <span className="text-5xl">{emoji}</span>
-                <span className="font-display text-xl text-cream group-hover:text-fire transition-colors">{label}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
+      <MenuCards />
 
 
 
