@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LiquidCard } from "@/components/ui/liquid-glass-card";
+import { ShineBorder } from "@/components/ui/shine-border";
 import { AnimatedSection } from "@/components/animated-section";
 
 const menuCategories = [
@@ -44,8 +45,8 @@ export function MenuCards() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuCategories.map(({ image, title, description }) => (
+            <ShineBorder key={title} color="#e84c1e" borderRadius={12} className="p-0 rounded-xl">
             <LiquidCard
-              key={title}
               className="border-[#f5f0e8]/10 hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
             >
               <div className="px-4 pt-0 pb-2 flex flex-col gap-4">
@@ -73,6 +74,7 @@ export function MenuCards() {
                 </div>
               </div>
             </LiquidCard>
+            </ShineBorder>
           ))}
         </div>
       </div>
