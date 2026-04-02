@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 
 function LiquidCard({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className="">
+    <div className="h-full w-full">
       <div
         data-slot="card"
         style={{ backdropFilter: 'url("#container-glass")' }}
