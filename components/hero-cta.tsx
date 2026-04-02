@@ -69,13 +69,6 @@ export function HeroCta() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-[2]"
-        aria-hidden="true"
-      >
-        <span />
-      </div>
     </section>
   );
 }
