@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { AnimatedSection } from "@/components/animated-section";
 import { StatsCounter } from "@/components/stats-counter";
 import { HeroCta } from "@/components/hero-cta";
+import { MenuMarquee } from "@/components/menu-marquee";
 
 
 const reviews = [
@@ -84,7 +85,8 @@ export default function HomePage() {
       {/* ── HERO ──────────────────────────────────────────── */}
       <HeroCta />
 
-
+      {/* ── MENU MARQUEE ──────────────────────────────────── */}
+      <MenuMarquee />
 
       {/* ── USP STATS ─────────────────────────────────────── */}
       <div className="py-16 bg-dark border-y border-white/10">
