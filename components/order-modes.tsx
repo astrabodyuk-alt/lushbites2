@@ -7,19 +7,19 @@ const orderModes = [
   {
     title: "Dine In",
     subtitle: "Walk in & enjoy fresh smash burgers",
-    image: "/order/dine-in.jpg",
+    image: "/order/dine-in.png",
     themeColor: "16 70% 28%",
   },
   {
     title: "Click & Collect",
     subtitle: "Order online, pick up in 15 mins",
-    image: "/order/collect.jpg",
+    image: "/order/collect.png",
     themeColor: "16 70% 22%",
   },
   {
     title: "Delivery",
     subtitle: "Hot to your door via Uber Eats & Deliveroo",
-    image: "/order/delivery.jpg",
+    image: "/order/delivery-2.png",
     themeColor: "16 70% 28%",
   },
 ];
