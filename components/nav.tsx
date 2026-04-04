@@ -41,7 +41,7 @@ export function Nav() {
           "fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center transition-all duration-300",
           scrolled
             ? "bg-dark/92 backdrop-blur-xl border-b border-white/10 shadow-md"
-            : "bg-transparent"
+            : "bg-black/40 backdrop-blur-md"
         )}
         aria-label="Main navigation"
       >
