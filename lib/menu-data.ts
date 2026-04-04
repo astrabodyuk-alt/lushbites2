@@ -4,6 +4,7 @@ export type MenuItem = {
   price: string;
   badge?: string;
   emoji: string;
+  image?: string;
 };
 
 export type MenuSection = {
@@ -23,18 +24,21 @@ export const menuSections: MenuSection[] = [
         price: "£10.50",
         badge: "Best Seller",
         emoji: "🍔",
+        image: "/menu/devil-bite.png",
       },
       {
         name: "BBQ Bacon Cheeseburger",
         desc: "Double smashed beef patty, streaky bacon, smoked cheddar, BBQ sauce, pickles, lettuce, toasted brioche bun.",
         price: "£11.50",
         emoji: "🥓",
+        image: "/menu/bbq-bacon.png",
       },
       {
         name: "Classic Smash",
         desc: "Double smashed beef patty, American cheddar, American mustard, pickles, white onion, toasted brioche bun. The original.",
         price: "£9.50",
         emoji: "⭐",
+        image: "/menu/classic-smash.png",
       },
     ],
   },

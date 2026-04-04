@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -6,10 +7,11 @@ type Props = {
   price: string;
   badge?: string;
   emoji: string;
+  image?: string;
   className?: string;
 };
 
-export function ProductCard({ name, desc, price, badge, emoji, className }: Props) {
+export function ProductCard({ name, desc, price, badge, emoji, image, className }: Props) {
   return (
     <div className={cn(
       "bg-brown rounded-lg border border-white/10 flex flex-col",
@@ -17,10 +19,20 @@ export function ProductCard({ name, desc, price, badge, emoji, className }: Prop
       className
     )}>
       {/* Image area */}
-      <div className="relative aspect-[4/3] flex items-center justify-center bg-dark/30 rounded-t-lg text-5xl">
-        {emoji}
+      <div className="relative aspect-[4/3] bg-dark/30 rounded-t-lg overflow-hidden">
+        {image ? (
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full text-5xl">{emoji}</div>
+        )}
         {badge && (
-          <span className="absolute top-3 left-3 bg-fire text-white text-[10px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-fire text-white text-[10px] font-bold tracking-wide uppercase px-2.5 py-1 rounded-full z-10">
             {badge}
           </span>
         )}
