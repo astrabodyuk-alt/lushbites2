@@ -104,8 +104,8 @@ export default function HomePage() {
       <AnimatedSection className="py-20 bg-dark">
         <div className="container-lush">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="aspect-square lg:aspect-[4/3] bg-brown rounded-xl border border-white/10 flex items-center justify-center text-8xl">
-              🍔
+            <div className="relative aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden">
+              <Image src="/our-story.png" alt="Our Story" fill className="object-cover rounded-2xl" />
             </div>
             <div>
               <p className="section-label mb-3">Our story</p>
