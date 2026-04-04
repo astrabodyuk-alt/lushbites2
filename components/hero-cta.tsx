@@ -41,8 +41,8 @@ export function HeroCta() {
       />
 
       {/* Content */}
-      <div className="container-lush relative z-[2] pt-[72px] flex items-start justify-start pl-12 md:pl-20">
-        <div className="space-y-8 max-w-xl text-left">
+      <div className="container-lush relative z-[2] pt-[72px] flex items-start justify-start pl-8 md:pl-16 lg:pl-24">
+        <div className="space-y-8 max-w-2xl text-left">
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-[#e84c1e] animate-hero-up">
             135 Queen Street · Portsmouth
           </p>
