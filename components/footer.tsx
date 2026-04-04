@@ -1,108 +1,119 @@
-import Link from "next/link";
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
-const menuLinks = [
-  { href: "/menu#beef-burgers",    label: "Burgers" },
-  { href: "/menu#wings",           label: "Wings" },
-  { href: "/menu#sides",           label: "Sides" },
-  { href: "/menu#salads",          label: "Salads" },
-];
-
-const visitLinks = [
-  { href: "/story",   label: "Our Story" },
-  { href: "/find-us", label: "Find Us" },
-  { href: "/order",   label: "Order Online" },
-];
-
-const hours = [
-  { days: "Mon–Thu", time: "11:00–22:00" },
-  { days: "Fri–Sat", time: "11:00–23:00" },
-  { days: "Sun",     time: "12:00–21:00" },
-];
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
-    <footer className="bg-brown border-t border-white/10 pt-16 pb-8">
-      <div className="container-lush">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+    <footer style={{ backgroundColor: "#0d0d0d" }} className="text-[#f5f0e8]">
+      {/* Main grid */}
+      <div className="container-lush py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
 
-          {/* Brand */}
-          <div>
-            <Link href="/" className="font-display text-2xl text-cream flex items-center gap-1 mb-4">
-              Lush <em className="italic text-fire not-italic ml-1">Bites</em>
-            </Link>
-            <p className="text-muted text-sm leading-relaxed max-w-xs">
-              Portsmouth's premium smash burger restaurant.<br />
-              135 Queen Street, PO1 3HY.<br />
-              Serving fresh, never frozen.
-            </p>
-            {/* Social */}
-            <div className="flex gap-3 mt-6">
-              {["IG", "TT", "FB"].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  aria-label={s}
-                  className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-xs font-semibold text-muted hover:border-fire hover:text-fire hover:bg-fire/10 transition-all"
-                >
-                  {s}
-                </a>
-              ))}
+          {/* LEFT — Brand */}
+          <div className="flex flex-col gap-4">
+            <span className="font-display text-3xl text-[#f5f0e8]">Lush Bites</span>
+            <p className="text-sm text-[#f5f0e8]/50">Portsmouth's finest smash burgers.</p>
+            <div className="flex gap-4 mt-1">
+              <a
+                href="https://www.instagram.com/lushbitesportsmouth"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-[#f5f0e8] hover:text-[#e84c1e] transition-colors"
+              >
+                <InstagramIcon className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.tiktok.com/@lushbitesportsmouth"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="text-[#f5f0e8] hover:text-[#e84c1e] transition-colors"
+              >
+                <TikTokIcon className="h-5 w-5" />
+              </a>
             </div>
           </div>
 
-          {/* Menu links */}
-          <div>
-            <p className="text-xs font-bold tracking-[0.12em] uppercase text-muted mb-4">Menu</p>
-            <ul className="space-y-2">
-              {menuLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="text-sm text-muted hover:text-cream transition-colors">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Visit links */}
-          <div>
-            <p className="text-xs font-bold tracking-[0.12em] uppercase text-muted mb-4">Visit</p>
-            <ul className="space-y-2">
-              {visitLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className="text-sm text-muted hover:text-cream transition-colors">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Hours + Contact */}
-          <div>
-            <p className="text-xs font-bold tracking-[0.12em] uppercase text-muted mb-4">Hours</p>
-            <ul className="space-y-1 mb-6">
-              {hours.map(({ days, time }) => (
-                <li key={days} className="text-sm text-muted flex justify-between gap-4">
-                  <span>{days}</span>
-                  <span className="text-cream/80">{time}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="text-xs font-bold tracking-[0.12em] uppercase text-muted mb-2">Contact</p>
-            <a href="mailto:hello@lushbites.co.uk" className="text-sm text-muted hover:text-cream transition-colors">
-              hello@lushbites.co.uk
+          {/* CENTER — Visit Us */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xs font-semibold tracking-[0.15em] uppercase text-[#e84c1e] mb-1">
+              Visit Us
+            </h3>
+            <p className="text-sm text-[#f5f0e8]/70">135 Queen Street</p>
+            <p className="text-sm text-[#f5f0e8]/70">Portsmouth PO1 3HY</p>
+            <a
+              href="https://maps.google.com/?q=135+Queen+Street+Portsmouth+PO1+3HY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-[#e84c1e] hover:underline mt-1 inline-block"
+            >
+              Get Directions →
             </a>
           </div>
-        </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-muted">
-          <p>© 2026 Lush Bites Portsmouth. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-cream transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-cream transition-colors">Allergen Info</a>
+          {/* RIGHT — Opening Hours */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xs font-semibold tracking-[0.15em] uppercase text-[#e84c1e] mb-1">
+              Opening Hours
+            </h3>
+            {[
+              ["Mon–Thu", "11am – 10pm"],
+              ["Fri–Sat", "11am – 11pm"],
+              ["Sun",     "12pm – 9pm"],
+            ].map(([days, hours]) => (
+              <div key={days} className="flex justify-between max-w-[200px] text-sm">
+                <span className="text-[#f5f0e8]/50">{days}</span>
+                <span className="text-[#f5f0e8]/80">{hours}</span>
+              </div>
+            ))}
           </div>
+
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-white/10">
+        <div className="container-lush py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#f5f0e8]/40">
+          <span>© 2026 Lush Bites. All rights reserved.</span>
+          <a
+            href="https://lushhh.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#e84c1e] transition-colors"
+          >
+            Order Online
+          </a>
         </div>
       </div>
     </footer>
