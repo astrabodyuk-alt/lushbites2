@@ -18,7 +18,7 @@ export function HeroCta() {
         playsInline
         preload="auto"
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-[center_40%] md:object-[center_50%] scale-75 md:scale-100"
+        className="absolute inset-0 w-full h-full object-cover object-[60%_center] md:object-center"
       >
         <source src={heroVideoUrl} type="video/mp4" />
       </video>
