@@ -56,9 +56,6 @@ export default function HomePage() {
       {/* ── ORDER MODES ───────────────────────────────────── */}
       <OrderModes />
 
-      {/* ── GOOGLE REVIEWS ────────────────────────────────── */}
-      <ReviewsMarquee />
-
       {/* ── FEATURED MENU ITEMS ───────────────────────────── */}
       <AnimatedSection className="py-20 bg-brown">
         <div className="container-lush">
@@ -100,6 +97,9 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
+
+      {/* ── GOOGLE REVIEWS ────────────────────────────────── */}
+      <ReviewsMarquee />
 
       {/* ── FIND US ───────────────────────────────────────── */}
       <AnimatedSection className="py-20 bg-dark">
