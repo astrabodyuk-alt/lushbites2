@@ -24,7 +24,7 @@ export function HeroCta() {
         <source src={heroVideoUrl} type="video/mp4" />
       </video>
 
-      {/* Dark overlay */}
+      {/* Dark overlay — bottom fade */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[1]"
@@ -34,9 +34,15 @@ export function HeroCta() {
         }}
       />
 
+      {/* Left-side gradient to frame text */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/40 to-transparent"
+      />
+
       {/* Content */}
-      <div className="container-lush relative z-[2] pt-[72px]">
-        <div className="space-y-8 max-w-3xl">
+      <div className="container-lush relative z-[2] pt-[72px] flex items-start justify-start pl-12 md:pl-20">
+        <div className="space-y-8 max-w-xl text-left">
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-[#e84c1e] animate-hero-up">
             135 Queen Street · Portsmouth
           </p>
@@ -51,7 +57,7 @@ export function HeroCta() {
             Smash burgers · Crispy wings · Loaded fries &amp; more.
           </p>
 
-          <div className="flex flex-wrap gap-4 animate-hero-up [animation-delay:600ms]">
+          <div className="flex flex-wrap gap-4 justify-start animate-hero-up [animation-delay:600ms]">
             <Link
               href="/order"
               className="group relative inline-flex items-center justify-center gap-2 rounded-full px-9 py-4 text-base font-semibold bg-[#e84c1e] text-white overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_32px_rgba(232,76,30,.4)]"
