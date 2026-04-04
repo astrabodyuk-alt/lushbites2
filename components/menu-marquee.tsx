@@ -69,7 +69,7 @@ export function MenuMarquee() {
         {marqueeItems.map((item, idx) => (
           <span
             key={idx}
-            className="text-xl font-medium tracking-wide px-10 whitespace-nowrap text-[#f5f0e8]/70"
+            className="text-xs md:text-sm font-medium tracking-wide px-2 md:px-4 whitespace-nowrap text-[#f5f0e8]/70"
           >
             {item}
           </span>
