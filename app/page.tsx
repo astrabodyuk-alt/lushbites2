@@ -105,7 +105,7 @@ export default function HomePage() {
         <div className="container-lush">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative w-full h-[500px] rounded-2xl overflow-hidden">
-              <Image src="/our-story.png" alt="Our Story" fill className="object-cover" />
+              <Image src="/menu/our-story.png" alt="Our Story" fill className="object-cover" />
             </div>
             <div>
               <p className="section-label mb-3">Our story</p>
