@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -47,8 +48,8 @@ export function Nav() {
       >
         <div className="container-lush w-full flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="font-display text-2xl text-cream flex items-center gap-2 shrink-0" aria-label="Lush Bites — home">
-            Lush <em className="italic text-fire not-italic">Bites</em>
+          <Link href="/" className="shrink-0" aria-label="Lush Bites — home">
+            <Image src="/lushbites-logo.jpg" alt="Lush Bites" width={120} height={40} className="object-contain" />
           </Link>
 
           {/* Desktop links */}
