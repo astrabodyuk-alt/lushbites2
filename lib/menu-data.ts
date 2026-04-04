@@ -24,7 +24,7 @@ export const menuSections: MenuSection[] = [
         price: "£10.50",
         badge: "Best Seller",
         emoji: "🍔",
-        image: "/menu/devil-bite.png",
+        image: "/menu/devil-bite..png",
       },
       {
         name: "BBQ Bacon Cheeseburger",
