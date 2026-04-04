@@ -9,6 +9,7 @@ import { HeroCta } from "@/components/hero-cta";
 import { MenuMarquee } from "@/components/menu-marquee";
 import { MenuCards } from "@/components/menu-card";
 import { OrderModes } from "@/components/order-modes";
+import { ReviewsMarquee } from "@/components/reviews-marquee";
 
 
 const reviews = [
@@ -79,8 +80,8 @@ export default function HomePage() {
       {/* ── ORDER MODES ───────────────────────────────────── */}
       <OrderModes />
 
-
-
+      {/* ── GOOGLE REVIEWS ────────────────────────────────── */}
+      <ReviewsMarquee />
 
       {/* ── FEATURED MENU ITEMS ───────────────────────────── */}
       <AnimatedSection className="py-20 bg-brown">
