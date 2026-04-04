@@ -12,30 +12,6 @@ import { OrderModes } from "@/components/order-modes";
 import { ReviewsMarquee } from "@/components/reviews-marquee";
 
 
-const reviews = [
-  {
-    stars: 5,
-    text: "The smash burgers here are absolutely incredible. Perfectly seasoned patties, toasted buns, and the sauce is next level. Best burger in Portsmouth by a mile!",
-    name: "James T.",
-    source: "Google",
-    initials: "JT",
-  },
-  {
-    stars: 5,
-    text: "Went in for a quick bite and left completely blown away. The smash burger was juicy, crispy, and just perfect. Already planning my next visit!",
-    name: "Sarah M.",
-    source: "Google",
-    initials: "SM",
-  },
-  {
-    stars: 5,
-    text: "Hands down the best smash burgers I've ever had. The meat quality is unreal — you can tell it's proper British beef. The loaded fries are insane too.",
-    name: "Mike R.",
-    source: "Google",
-    initials: "MR",
-  },
-];
-
 
 const stats = [
   { value: 5, suffix: "★", label: "Rating" },
@@ -124,43 +100,6 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      {/* ── GOOGLE REVIEWS ─────────────────────────────────── */}
-      <AnimatedSection className="py-20" style={{ backgroundColor: "#222222" }}>
-        <div className="container-lush">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div>
-              <p className="section-label mb-3">What people say</p>
-              <h2 className="section-title">
-                Google <em className="text-fire-italic">Reviews</em>
-              </h2>
-            </div>
-            <div className="flex items-center gap-3 bg-fire/10 border border-fire/30 rounded-xl px-6 py-4">
-              <span className="font-display text-4xl text-cream">5.0</span>
-              <div>
-                <p className="text-fire text-lg leading-none mb-1">★★★★★</p>
-                <p className="text-xs text-muted">Google Reviews</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {reviews.map((r) => (
-              <div key={r.name} className="bg-dark rounded-lg border border-white/10 p-6 hover:-translate-y-1 transition-transform duration-200">
-                <p className="text-fire tracking-wider mb-3">{"★".repeat(r.stars)}</p>
-                <p className="text-[0.9375rem] text-muted italic leading-relaxed mb-5">&ldquo;{r.text}&rdquo;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-fire flex items-center justify-center text-xs font-bold text-white">
-                    {r.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-cream">{r.name}</p>
-                    <p className="text-xs text-muted">{r.source}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </AnimatedSection>
 
       {/* ── FIND US ───────────────────────────────────────── */}
       <AnimatedSection className="py-20 bg-dark">
