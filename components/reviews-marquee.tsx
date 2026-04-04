@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Star } from "lucide-react";
 import { Marquee } from "@/components/ui/marquee";
 
@@ -34,8 +35,8 @@ function ReviewCard({ name, initials, body, rating }: (typeof reviews)[0]) {
   return (
     <div className="mx-3 w-80 flex-shrink-0 rounded-2xl border border-white/10 bg-[#1a1a1a] p-6 flex flex-col gap-4">
       <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-full bg-fire flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-          {initials}
+        <div className="relative h-10 w-10 rounded-full overflow-hidden flex-shrink-0">
+          <Image src="/menu/menu-burger.png" alt="burger" fill className="object-cover" />
         </div>
         <div>
           <p className="text-cream font-semibold text-sm">{name}</p>
